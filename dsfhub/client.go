@@ -65,17 +65,20 @@ type APIError struct {
 }
 
 type ResourceData struct {
-	ApplianceID     int       `json:"applianceId,omitempty"`
-	ApplianceType   string    `json:"applianceType,omitempty"`
-	AssetData       AssetData `json:"assetData"`
-	AuditState      string    `json:"auditState,omitempty"`
-	GatewayID       string    `json:"gatewayId"`
-	GatewayName     string    `json:"gatewayName,omitempty"`
-	ID              string    `json:"id,omitempty,omitempty"`
-	IsMonitored     bool      `json:"isMonitored,omitempty"`
-	ParentAssetID   string    `json:"parentAssetId,omitempty"`
-	RemoteSyncState string    `json:"remoteSyncState,omitempty"`
-	ServerType      string    `json:"serverType"`
+	ApplianceID          int             `json:"applianceId,omitempty"`
+	ApplianceType        string          `json:"applianceType,omitempty"`
+	AssetData            AssetData       `json:"assetData"`
+	AuditState           string          `json:"auditState,omitempty"`
+	// CipherTrustData      CipherTrustData `json:"cipherTrustData,omitempty"`
+	// ClassificationData   ClassificationData `json:"classificationData,omitempty"`
+	IntegrationData      IntegrationData `json:"integrationData,omitempty"`
+	GatewayID            string          `json:"gatewayId"`
+	GatewayName          string          `json:"gatewayName,omitempty"`
+	ID                   string          `json:"id,omitempty"`
+	IsMonitored          bool            `json:"isMonitored,omitempty"`
+	ParentAssetID        string          `json:"parentAssetId,omitempty"`
+	RemoteSyncState      string          `json:"remoteSyncState,omitempty"`
+	ServerType           string          `json:"serverType"`
 }
 
 type AssetData struct {
@@ -298,6 +301,53 @@ type Secret struct {
 	SecretName    string            `json:"secret_name,omitempty"`
 }
 
+type IntegrationData struct {
+	ID string `json:"id,omitempty"`
+	Description string `json:"description,omitempty"`
+	Type string `json:"type,omitempty"`
+	Status string `json:"status,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
+	LastStatusUpdate string `json:"last_status_update,omitempty"`
+	StorageDetails *StorageDetails `json:"storage_details,omitempty"`
+	DatabaseDetails *DatabaseDetails `json:"database_details,omitempty"`
+	Hostname string `json:"hostname,omitempty"`
+	Port int `json:"port,omitempty"`
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+	CMName string `json:"cm_name,omitempty"`
+	IsLoadBalancer bool `json:"is_load_balancer,omitempty"`
+	AuthMethod string `json:"auth_method,omitempty"`
+	RegistrationToken string `json:"registration_token,omitempty"`
+}
+
+// type ClassificationData struct {
+// 	ID string `json:"id,omitempty"`
+// 	Description string `json:"description,omitempty"`
+// 	Type string `json:"type,omitempty"`
+// 	Status string `json:"status,omitempty"`
+// 	DisplayName string `json:"display_name,omitempty"`
+// 	LastStatusUpdate string `json:"last_status_update,omitempty"`
+// 	StorageDetails *StorageDetails `json:"storage_details,omitempty"`
+// 	DatabaseDetails *DatabaseDetails `json:"database_details,omitempty"`
+// }
+
+// type CipherTrustData struct {
+// 	ID string `json:"id,omitempty"`
+// 	Description string `json:"description,omitempty"`
+// 	Type string `json:"type,omitempty"`
+// 	Status string `json:"status,omitempty"`
+// 	Hostname string `json:"hostname,omitempty"`
+// 	Port int `json:"port,omitempty"`
+// 	Username string `json:"username,omitempty"`
+// 	Password string `json:"password,omitempty"`
+// 	DisplayName string `json:"display_name,omitempty"`
+// 	LastStatusUpdate string `json:"last_status_update,omitempty"`
+// 	CMName string `json:"cm_name,omitempty"`
+// 	IsLoadBalancer bool `json:"is_load_balancer,omitempty"`
+// 	AuthMethod string `json:"auth_method,omitempty"`
+// 	RegistrationToken string `json:"registration_token,omitempty"`
+// }
+
 type CredentialFields struct {
 	CredentialSource string `json:"credential_source,omitempty"`
 	RoleArn          string `json:"role_arn,omitempty"`
@@ -310,6 +360,29 @@ type OauthParameters struct {
 type ResourceResponse struct {
 	Data   string     `json:"data"`
 	Errors []APIError `json:"errors,omitempty"`
+}
+
+type StorageDetails struct {
+	StorageType           string                 `json:"storage_type,omitempty"`
+	S3BucketConfiguration *S3BucketConfiguration `json:"s3_bucket_configuration,omitempty"`
+}
+
+type S3BucketConfiguration struct {
+	BucketName      string `json:"bucket_name,omitempty"`
+	AWSRegion       string `json:"aws_region,omitempty"`
+	CloudName       string `json:"cloud_name,omitempty"`
+	AccessKeyId     string `json:"access_key_id,omitempty"`
+	SecretAccessKey string `json:"secret_access_key,omitempty"`
+}
+
+type DatabaseDetails struct {
+	DatabaseType       string `json:"database_type,omitempty"`
+	MongoConfiguration *MongoConfiguration `json:"mongo_configuration,omitempty"`
+}
+
+type MongoConfiguration struct {
+	DbName           string `json:"db_name,omitempty"`
+	ConnectionString string `json:"connection_string,omitempty"`
 }
 
 // NewClient creates a new client with the provided configuration
@@ -326,7 +399,7 @@ func NewClient(config *Config) *Client {
 func (c *Client) Verify() (*GatewaysResponse, error) {
 	log.Println("[INFO] Checking API token against DSF Host /gateways endpoint")
 
-	resp, err := c.MakeCall(http.MethodGet, endpointGateways, nil)
+	resp, err := c.MakeCall(http.MethodGet, endpointGateways, "baseresource",nil)
 	if err != nil {
 		// tls: failed to verify certificate
 		return nil, fmt.Errorf("error checking token: %s", err)
@@ -353,8 +426,16 @@ func (c *Client) Verify() (*GatewaysResponse, error) {
 	return &gatewaysResponse, nil
 }
 
-func (c *Client) MakeCall(method string, action string, data []byte) (*http.Response, error) {
-	reqURL := c.config.DSFHUBHost + baseAPIPrefix + action
+func (c *Client) MakeCall(method string, action string, endpoint string, data []byte) (*http.Response, error) {
+	var APIEndpoint string
+	switch endpoint {
+		case "integration":
+			APIEndpoint = integrationsBaseAPIPrefix
+		default:
+			APIEndpoint = baseAPIPrefix
+	}
+
+	reqURL := c.config.DSFHUBHost + APIEndpoint + action
 	req, err := PrepareJsonRequest(method, reqURL, data)
 	if err != nil {
 		return nil, fmt.Errorf("error preparing request: %s", err)
@@ -365,8 +446,18 @@ func (c *Client) MakeCall(method string, action string, data []byte) (*http.Resp
 	return c.httpClient.Do(req)
 }
 
-func (c *Client) MakeCallWithQueryParams(method string, action string, data []byte, params map[string]string) (*http.Response, error) {
-	reqURL := c.config.DSFHUBHost + baseAPIPrefix + action
+func (c *Client) MakeCallWithQueryParams(method string, action string, endpoint string, data []byte, params map[string]string) (*http.Response, error) {
+	var APIEndpoint string
+	switch endpoint {
+		case "integration":
+			APIEndpoint = integrationsBaseAPIPrefix
+		case "fam":
+			APIEndpoint = famBaseAPIPrefix
+		default:
+			APIEndpoint = baseAPIPrefix
+	}
+	
+	reqURL := c.config.DSFHUBHost + APIEndpoint + action
 	req, err := PrepareJsonRequest(method, reqURL, data)
 	if err != nil {
 		return nil, fmt.Errorf("error preparing request: %s", err)

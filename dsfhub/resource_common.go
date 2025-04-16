@@ -292,6 +292,271 @@ func createResource(dsfDataSource *ResourceWrapper, serverType string, d *schema
 	dsfDataSource.Data.AssetData.Connections = connectionsAry
 }
 
+func createIntegrationResource(dsfDataSource *ResourceWrapper, serverType string, d *schema.ResourceData) {
+	integrationSchema := getIntegrationSchema()
+	//  Iterate through dsfDataSourceData.Data struct fields, retrieve value from d.get() using schema field.id
+	structDataFieldsAry := reflect.Indirect(reflect.ValueOf(&dsfDataSource.Data))
+	structDataFieldKeys := reflect.ValueOf(&dsfDataSource.Data).Elem()
+	for i := 0; i < structDataFieldsAry.NumField(); i++ {
+		curStructField := structDataFieldsAry.Type().Field(i)
+		log.Printf("[DEBUG] checking for Data field in integrationSchema: %v\n", curStructField.Name)
+		if schemaField, found := integrationSchema.Details[curStructField.Name]; found {
+			log.Printf("[DEBUG] Data field curStructField.Name '%v' present in integrationSchema\n", curStructField.Name)
+			if curStructField.Name != "IntegrationData" {
+				//Check to see if field value is set in tf input
+				if _, found := d.GetOk(schemaField.ID); found {
+					log.Printf("[DEBUG] Get schema Data field by schemaField.ID (%v)\n", schemaField.ID)
+					structField := structDataFieldKeys.FieldByName(curStructField.Name)
+					populateStructField(&structField, schemaField, d)
+				} else {
+					log.Printf("[DEBUG] Data field %v not provided in terraform config - not found by d.GetOk(%v)\n", schemaField.ID, schemaField.ID)
+				}
+			}
+		} else {
+			log.Printf("[DEBUG] Field not found in Data integrationSchema, integrationSchema.Details[%v]: %v", curStructField.Name, integrationSchema.Details[curStructField.Name])
+		}
+	}
+
+	//  Iterate through dsfDataSourceData.Data.IntegrationData struct fields, retrieve value from d.get() using schema field.id
+	structIntegrationDataFieldsAry := reflect.Indirect(reflect.ValueOf(&dsfDataSource.Data.IntegrationData))
+	// structAssetDataFieldKeys := reflect.ValueOf(&dsfDataSource.Data.AssetData).Elem()
+	for i := 0; i < structIntegrationDataFieldsAry.NumField(); i++ {
+		curStructField := structIntegrationDataFieldsAry.Type().Field(i)
+		log.Printf("[DEBUG] checking for field in integrationSchema: %v\n", curStructField.Name)
+		if schemaField, found := integrationSchema.Details[curStructField.Name]; found {
+			log.Printf("[DEBUG] field curStructField.Name '%v' present in integrationSchema\n", curStructField.Name)
+			if curStructField.Name != "Connections" {
+				//Check to see if field value is set in tf input
+				if _, found := d.GetOk(schemaField.ID); found {
+					// structField := structAssetDataFieldKeys.FieldByName(curStructField.Name)
+					log.Printf("[DEBUG] Get schema field by schemaField.ID (%v)\n", schemaField.ID)
+					// if structField.Kind() == reflect.Ptr {
+					// 	switch schemaField.ID {
+					// 	case "audit_info":
+					// 		inputVal := d.Get(schemaField.ID).(*schema.Set)
+					// 		log.Printf("[DEBUG] audit_info: %v, %v", schemaField, inputVal)
+					// 		for _, schemaFieldInt := range inputVal.List() {
+					// 			ai := AuditInfo{}
+					// 			schemaField := schemaFieldInt.(map[string]interface{})
+					// 			for fieldName, fieldObjInt := range schemaField {
+					// 				fieldObj := fieldObjInt.(interface{})
+					// 				switch fieldName {
+					// 				case "policy_template_name":
+					// 					ai.PolicyTemplateName = fieldObj.(string)
+					// 				}
+					// 			}
+					// 			dsfDataSource.Data.AssetData.AuditInfo = &ai
+					// 		}
+					// 	case "aws_proxy_config":
+					// 		inputVal := d.Get(schemaField.ID).(*schema.Set)
+					// 		log.Printf("[DEBUG] aws_proxy_config: %v, %v", schemaField, inputVal)
+					// 		for _, schemaFieldInt := range inputVal.List() {
+					// 			apc := AwsProxyConfig{}
+					// 			schemaField := schemaFieldInt.(map[string]interface{})
+					// 			for fieldName, fieldObjInt := range schemaField {
+					// 				fieldObj := fieldObjInt.(interface{})
+					// 				switch fieldName {
+					// 				case "http":
+					// 					apc.HTTP = fieldObj.(string)
+					// 				case "https":
+					// 					apc.HTTPS = fieldObj.(string)
+					// 				}
+					// 			}
+					// 			dsfDataSource.Data.AssetData.AwsProxyConfig = &apc
+					// 		}
+					// 	}
+					// } else {
+					// 	if schemaField.ID == "server_port" {
+					// 		log.Printf("[DEBUG] Setting AssetData server_port interface as string (%v)\n", schemaField.ID)
+					// 		dsfDataSource.Data.AssetData.ServerPort = d.Get("server_port").(string)
+					// 	} else {
+					// 		populateStructField(&structField, schemaField, d)
+					// 	}
+					// }
+				} else {
+					log.Printf("[DEBUG] AssetData field %v not provided in terraform config - not found by d.GetOk(%v)\n", schemaField.ID, schemaField.ID)
+				}
+			}
+		} else {
+			log.Printf("[DEBUG] Field not found in AssetData assetSchema, assetSchema.Details[%v]: %v", curStructField.Name, integrationSchema.Details[curStructField.Name])
+		}
+	}
+
+	//  Iterate through asset_connection blocks in resource input
+	// var connectionsAry = make([]AssetConnection, 0)
+	// connections := d.Get("asset_connection").(*schema.Set)
+	// for _, conn := range connections.List() {
+	// 	connection := conn.(map[string]interface{})
+	// 	curConnection := AssetConnection{}
+	// 	curConnection.Reason = connection["reason"].(string)
+	// 	//  Iterate through dsfDataSourceData.Data.AssetData.Connections struct fields, retrieve value from d.get() using schema field.id
+	// 	structConnDataFieldsAry := reflect.Indirect(reflect.ValueOf(&curConnection.ConnectionData))
+	// 	structConnDataFieldKeys := reflect.ValueOf(&curConnection.ConnectionData).Elem()
+	// 	for i := 0; i < structConnDataFieldsAry.NumField(); i++ {
+	// 		curStructField := structConnDataFieldsAry.Type().Field(i)
+	// 		if schemaField, found := integrationSchema.Connections[curStructField.Name]; found {
+	// 			// // Check to see if field value is set in tf input
+	// 			if _, found := connection[schemaField.ID]; found {
+	// 				log.Printf("Check field type and assign to connection, connection[%v]: %v", schemaField.ID, connection[schemaField.ID])
+	// 				structField := structConnDataFieldKeys.FieldByName(curStructField.Name)
+	// 				paramVal := connection[schemaField.ID]
+	// 				if reflect.TypeOf(paramVal) == reflect.TypeOf(&schema.Set{}) {
+	// 					switch schemaField.ID {
+	// 					case "amazon_secret":
+	// 						inputVal := connection[schemaField.ID].(*schema.Set)
+	// 						if inputVal.Len() > 0 {
+	// 							for _, schemaFieldInt := range inputVal.List() {
+	// 								as := Secret{}
+	// 								schemaField := schemaFieldInt.(map[string]interface{})
+	// 								for fieldName, fieldObjInt := range schemaField {
+	// 									fieldObj := fieldObjInt.(interface{})
+	// 									switch fieldName {
+	// 									case "field_mapping":
+	// 										as.FieldMapping = make(map[string]string)
+	// 										fieldObj := fieldObj.(map[string]interface{})
+	// 										for fmFieldName, fmFieldObj := range fieldObj {
+	// 											as.FieldMapping[fmFieldName] = string(fmFieldObj.(string))
+	// 										}
+	// 									case "secret_asset_id":
+	// 										as.SecretAssetID = fieldObj.(string)
+	// 									case "secret_name":
+	// 										as.SecretName = fieldObj.(string)
+	// 									}
+	// 								}
+	// 								curConnection.ConnectionData.AmazonSecret = &as
+	// 							}
+	// 						}
+	// 					case "credential_fields":
+	// 						inputVal := connection[schemaField.ID].(*schema.Set)
+	// 						if inputVal.Len() > 0 {
+	// 							for _, schemaFieldInt := range inputVal.List() {
+	// 								cf := CredentialFields{}
+	// 								schemaField := schemaFieldInt.(map[string]interface{})
+	// 								for fieldName, fieldObjInt := range schemaField {
+	// 									fieldObj := fieldObjInt.(interface{})
+	// 									switch fieldName {
+	// 									case "secret_asset_id":
+	// 										cf.CredentialSource = fieldObj.(string)
+	// 									case "secret_name":
+	// 										cf.RoleArn = fieldObj.(string)
+	// 									}
+	// 								}
+	// 								curConnection.ConnectionData.CredentialFields = &cf
+	// 							}
+	// 						}
+	// 					case "cyberark_secret":
+	// 						inputVal := connection[schemaField.ID].(*schema.Set)
+	// 						if inputVal.Len() > 0 {
+	// 							for _, schemaFieldInt := range inputVal.List() {
+	// 								hs := Secret{}
+	// 								schemaField := schemaFieldInt.(map[string]interface{})
+	// 								for fieldName, fieldObjInt := range schemaField {
+	// 									fieldObj := fieldObjInt.(interface{})
+	// 									switch fieldName {
+	// 									case "field_mapping":
+	// 										hs.FieldMapping = make(map[string]string)
+	// 										fieldObj := fieldObj.(map[string]interface{})
+	// 										for fmFieldName, fmFieldObj := range fieldObj {
+	// 											hs.FieldMapping[fmFieldName] = string(fmFieldObj.(string))
+	// 										}
+	// 									case "path":
+	// 										hs.Path = fieldObj.(string)
+	// 									case "secret_asset_id":
+	// 										hs.SecretAssetID = fieldObj.(string)
+	// 									case "secret_name":
+	// 										hs.SecretName = fieldObj.(string)
+	// 									}
+	// 								}
+	// 								curConnection.ConnectionData.CyberarkSecret = &hs
+	// 							}
+	// 						}
+	// 					case "hashicorp_secret":
+	// 						inputVal := connection[schemaField.ID].(*schema.Set)
+	// 						if inputVal.Len() > 0 {
+	// 							for _, schemaFieldInt := range inputVal.List() {
+	// 								hs := Secret{}
+	// 								schemaField := schemaFieldInt.(map[string]interface{})
+	// 								for fieldName, fieldObjInt := range schemaField {
+	// 									fieldObj := fieldObjInt.(interface{})
+	// 									switch fieldName {
+	// 									case "field_mapping":
+	// 										hs.FieldMapping = make(map[string]string)
+	// 										fieldObj := fieldObj.(map[string]interface{})
+	// 										for fmFieldName, fmFieldObj := range fieldObj {
+	// 											hs.FieldMapping[fmFieldName] = string(fmFieldObj.(string))
+	// 										}
+	// 									case "path":
+	// 										hs.Path = fieldObj.(string)
+	// 									case "secret_asset_id":
+	// 										hs.SecretAssetID = fieldObj.(string)
+	// 									case "secret_name":
+	// 										hs.SecretName = fieldObj.(string)
+	// 									}
+	// 								}
+	// 								curConnection.ConnectionData.HashicorpSecret = &hs
+	// 							}
+	// 						}
+	// 					case "oauth_parameters":
+	// 						inputVal := connection[schemaField.ID].(*schema.Set)
+	// 						if inputVal.Len() > 0 {
+	// 							for _, schemaFieldInt := range inputVal.List() {
+	// 								op := OauthParameters{}
+	// 								schemaField := schemaFieldInt.(map[string]interface{})
+	// 								for fieldName, fieldObjInt := range schemaField {
+	// 									fieldObj := fieldObjInt.(interface{})
+	// 									switch fieldName {
+	// 									case "parameter":
+	// 										op.Parameter = fieldObj.(string)
+	// 									}
+	// 								}
+	// 								curConnection.ConnectionData.OauthParameters = &op
+	// 							}
+	// 						}
+	// 					}
+	// 				} else {
+	// 					if reflect.TypeOf(paramVal) != nil {
+	// 						switch value := reflect.TypeOf(paramVal); value.Kind() {
+	// 						case reflect.Int:
+	// 							log.Printf("[DEBUG] schemaField.ID %v, Type=Int: %v\n", schemaField.ID, value)
+	// 							value := connection[schemaField.ID].(int)
+	// 							structField.SetInt(int64(value))
+	// 						case reflect.Float64:
+	// 							log.Printf("[DEBUG] schemaField.ID %v, Type=Float: %v\n", schemaField.ID, value)
+	// 							value := connection[schemaField.ID].(float64)
+	// 							structField.SetFloat(value)
+	// 						case reflect.String:
+	// 							log.Printf("[DEBUG] schemaField.ID %v, Type=String: %v\n", schemaField.ID, value)
+	// 							value := connection[schemaField.ID].(string)
+	// 							structField.SetString(value)
+	// 						case reflect.Bool:
+	// 							log.Printf("[DEBUG] schemaField.ID %v, Type=Bool: %v\n", schemaField.ID, value)
+	// 							value := connection[schemaField.ID].(bool)
+	// 							structField.SetBool(value)
+	// 						//case reflect.Slice:
+	// 						//	value := d.Get(schemaField.ID)
+	// 						//	structField.SetBool(value)
+	// 						//	log.Printf("Slice: %v\n", value)
+	// 						//	// Handle slices or arrays here
+	// 						//case reflect.Map:
+	// 						//	log.Printf("Map: %v\n", value)
+	// 						//	// Handle maps here
+	// 						default:
+	// 							log.Printf("[DEBUG] Unknown type for field %v connection[schemaField.ID]: Type:%v\n", schemaField.ID, reflect.TypeOf(paramVal))
+	// 						}
+	// 					}
+	// 				}
+	// 			} else {
+	// 				log.Printf("[DEBUG] Connection field not found, connection[%v]: %v ", schemaField.ID, connection[schemaField.ID])
+	// 			}
+	// 		} else {
+	// 			log.Printf("[DEBUG] Parsing connection fields, assetSchema.Connections[%v] not found: %v", curStructField.Name, assetSchema.Connections[curStructField.Name])
+	// 		}
+		// }
+		// connectionsAry = append(connectionsAry, curConnection)
+	// }
+	// dsfDataSource.Data.AssetData.Connections = connectionsAry
+}
+
 func checkResourceRequiredFields(requiredFieldsJson string, ignoreParamsByServerType map[string]map[string]bool, d *schema.ResourceData) (bool, error) {
 	missingParams := []string{}
 	var requiredFields RequiredFieldsMap
@@ -402,6 +667,16 @@ func getSchema() AssetSchema {
 	return assetSchema
 }
 
+func getIntegrationSchema() IntegrationSchema {
+	var assetSchema IntegrationSchema
+	err := json.Unmarshal([]byte(integrationSchemaJson), &assetSchema)
+	if err != nil {
+		log.Printf("[DEBUG] json.Unmarshal([]byte(integrationSchemaJson), &integrationSchema) %s:\n", err)
+		panic(err)
+	}
+	return assetSchema
+}
+
 func contains(l []string, x string) bool {
 	for _, a := range l {
 		if a == x {
@@ -436,6 +711,16 @@ func readAsset(client Client, resourceType string, assetId string) (*ResourceWra
 		{
 			log.Printf("[INFO] reading secret_manager asset %v", assetId)
 			result, err = client.ReadLogAggregator(assetId)
+		}
+	case dsfClassificationResourceType:
+		{
+			log.Printf("[INFO] reading classification asset %v", assetId)
+			result, err = client.ReadClassification(assetId)
+		}
+	case dsfCiphertrustResourceType:
+		{
+			log.Printf("[INFO] reading ciphertrust asset %v", assetId)
+			result, err = client.ReadCiphertrust(assetId)
 		}
 	default:
 		{
@@ -570,16 +855,14 @@ func connectDisconnectGateway(ctx context.Context, d *schema.ResourceData, resou
 
 	// if audit_pull_enabled has been changed, connect/disconnect from gateway as needed
 	if auditPullEnabledChanged {
+		var err error
 		if auditPullEnabled {
-			err := connectGateway(ctx, m, assetId, resourceType)
-			if err != nil {
-				return err
-			}
+			err = connectGateway(ctx, m, assetId, resourceType)
 		} else {
-			err := disconnectGateway(ctx, m, assetId, resourceType)
-			if err != nil {
-				return err
-			}
+			err = disconnectGateway(ctx, m, assetId, resourceType)
+		}
+		if err != nil {
+			return err
 		}
 		// if asset is already connected, check whether relevant fields have been updated and reconnect to gateway
 	} else if auditPullEnabled {

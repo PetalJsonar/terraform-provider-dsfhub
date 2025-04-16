@@ -14,6 +14,11 @@ type AssetSchema struct {
 	Details     map[string]SchemaField `json:"details"`
 }
 
+type IntegrationSchema struct {
+    // Integration map[string]SchemaField `json:"integration"`
+    Details     map[string]SchemaField `json:"details"`
+}
+
 type SchemaField struct {
 	DefaultValue interface{} `json:"defaultValue"`
 	Description  string      `json:"description"`
@@ -25,6 +30,152 @@ type SchemaField struct {
 	Values       interface{} `json:"values"`
 	ID           string      `json:"id"`
 }
+
+// TODO: doesn't contain StorageDetails or DatabaseDetails
+var integrationSchemaJson = `{
+    "details": {
+        "ID": {
+            "defaultValue": null,
+            "description": "The ID",
+            "displayName": "Admin Email",
+            "example": "some-id",
+            "id": "ID",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Description": {
+            "defaultValue": null,
+            "description": "The description of the integration",
+            "displayName": "Description",
+            "example": "This is a description",
+            "id": "description",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Type": {
+            "defaultValue": null,
+            "description": "The type of integration",
+            "displayName": "Type",
+            "example": "some-type",
+            "id": "type",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Status": {
+            "defaultValue": null,
+            "description": "The status of the integration",
+            "displayName": "Status",
+            "example": "some-status",
+            "id": "status",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "DisplayName": {
+            "defaultValue": null,
+            "description": "The display name of the integration",
+            "displayName": "Display Name",
+            "example": "some-display-name",
+            "id": "display_name",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "LastStatusUpdate": {
+            "defaultValue": null,
+            "description": "The last status update of the integration",
+            "displayName": "Last Status Update",
+            "example": "2023-10-01T00:00:00Z",
+            "id": "last_status_update",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Hostname": {
+            "defaultValue": null,
+            "description": "The hostname of the integration",
+            "displayName": "Hostname",
+            "example": "some-hostname",
+            "id": "hostname",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Port": {
+            "defaultValue": null,
+            "description": "The port of the integration",
+            "displayName": "Port",
+            "example": "8080",
+            "id": "port",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "Username": {
+            "defaultValue": null,
+            "description": "The username of the integration",
+            "displayName": "Username",
+            "example": "some-username",
+            "id": "username",
+            "optional": true,
+            "required": false,
+            "type": "string"
+        },
+        "Password": {
+            "defaultValue": null,
+            "description": "The password of the integration",
+            "displayName": "Password",
+            "example": "some-password",
+            "id": "password",
+            "optional": true,
+            "required": false,
+            "type": "string"
+        },
+        "CMName": {
+            "defaultValue": null,
+            "description": "The CM name of the integration",
+            "displayName": "CM Name",
+            "example": "some-cm-name",
+            "id": "cm_name",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "IsLoadBalancer": {
+            "defaultValue": null,
+            "description": "Should the integration use a load balancer",
+            "displayName": "Is Load Balancer",
+            "example": false,
+            "id": "is_load_balancer",
+            "optional": true,
+            "required": false,
+            "type": "bool"
+        },
+        "AuthMethod": {
+            "defaultValue": null,
+            "description": "The authentication method to use",
+            "displayName": "Auth Method",
+            "example": "some-auth-method",
+            "id": "auth_method",
+            "optional": false,
+            "required": true,
+            "type": "string"
+        },
+        "RegistrationToken": {
+            "defaultValue": null,
+            "description": "The registration token for the integration",
+            "displayName": "Registration Token",
+            "example": "some-registration-token",
+            "id": "registration_token",
+            "optional": true,
+            "required": false,
+            "type": "string"
+        },
+    },
+}`
 
 var assetSchemaJson = `{
     "connections": {

@@ -5,10 +5,14 @@ import (
 )
 
 var baseAPIPrefix string
+var famBaseAPIPrefix string
+var integrationsBaseAPIPrefix string
 var descriptions map[string]string
 
 func init() {
 	baseAPIPrefix = "/dsf/api/v2"
+	famBaseAPIPrefix = "/fam/api/v1"
+	integrationsBaseAPIPrefix = "/integrations/api/v1"
 	descriptions = map[string]string{
 		"dsfhub_token": "The API token for API operations. You can retrieve this\n" +
 			"from the DSF management hub console. Can be set via TF_VAR_dsfhub_token " +
@@ -82,6 +86,9 @@ func Provider() *schema.Provider {
 			"dsfhub_log_aggregators": dataSourceLogAggregators(),
 			"dsfhub_secret_manager":  dataSourceSecretManager(),
 			"dsfhub_secret_managers": dataSourceSecretManagers(),
+			"dsfhub_classification":  dataSourceClassification(),
+			"dsfhub_ciphertrust":     dataSourceCiphertrust(),
+			// "dsfhub_classifications": dataSourceClassifications(),
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
@@ -89,6 +96,8 @@ func Provider() *schema.Provider {
 			"dsfhub_data_source":    resourceDSFDataSource(),
 			"dsfhub_log_aggregator": resourceLogAggregator(),
 			"dsfhub_secret_manager": resourceSecretManager(),
+			"dsfhub_classification": resourceClassification(),
+			"dsfhub_ciphertrust":    resourceCiphertrust(),
 		},
 	}
 

@@ -20,9 +20,10 @@ type Config struct {
 	Params map[string]string
 }
 
+var validSyncTypes = []string{"SYNC_GW_BLOCKING", "SYNC_GW_NON_BLOCKING", "DO_NOT_SYNC_GW"}
+
 var missingAPITokenMessage = "DSF HUB API Token must be provided"
 var missingDSFHostMessage = "DSF HUB host/API endpoint must be provided"
-var validSyncTypes = []string{"SYNC_GW_BLOCKING", "SYNC_GW_NON_BLOCKING", "DO_NOT_SYNC_GW"}
 var invalidSyncTypeMessage = "Invalid sync_type. Available values: " + strings.Join(validSyncTypes, ", ")
 
 // Client configures and returns a fully initialized DSF Client
@@ -37,7 +38,7 @@ func (c *Config) Client() (interface{}, error) {
 	}
 	// Check sync_type param
 	if syncType, exists := c.Params["syncType"]; exists {
-		if !IsValidSyncType(syncType) {
+		if !isValidSyncType(syncType) {
 			return nil, errors.New(invalidSyncTypeMessage)
 		}
 	}
@@ -55,7 +56,7 @@ func (c *Config) Client() (interface{}, error) {
 	return client, nil
 }
 
-func IsValidSyncType(sync_type string) bool {
+func isValidSyncType(sync_type string) bool {
 	for _, valid_sync_type := range validSyncTypes {
 		if sync_type == valid_sync_type {
 			return true
