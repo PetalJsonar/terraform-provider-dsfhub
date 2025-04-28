@@ -31,14 +31,14 @@ func resourceClassification() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Description of the classification.",
 				Optional:    true,
-				Computed: true,
+				// Computed: true,
 				Default: "Data discovery and classification service, used to classify all data within your organization.",
 			},
 			"type": {
 				Type:        schema.TypeString,
 				Description: "Type of the classification.",
-				Computed:    true,
-				Default: "Classification service",
+				Required:    true,
+				// Default: "Classification service",
 			},
 			"status": {
 				Type:        schema.TypeString,
@@ -66,7 +66,7 @@ func resourceClassification() *schema.Resource {
 						"database_type": {
 							Type:        schema.TypeString,
 							Description: "Name of the database.",
-							Computed:    true,
+							Optional:    true,
 							Default:    "MongoDB",
 						},
 						"mongo_configuration": {
@@ -87,7 +87,7 @@ func resourceClassification() *schema.Resource {
 						"storage_type": {
 							Type:        schema.TypeString,
 							Description: "Name of the storage.",
-							Computed:    true,
+							Optional:    true,
 							Default:    "AWS - S3 Bucket",
 						},
 						"s3_bucket_configuration": {
@@ -104,7 +104,7 @@ func resourceClassification() *schema.Resource {
 									"cloud_name": {
 										Type:        schema.TypeString,
 										Description: "Name of the cloud provider.",
-										Computed:    true,
+										Optional:    true,
 										Default:    "AWS",
 									},
 									"aws_region": {
@@ -145,20 +145,20 @@ func resourceClassificationCreateContext(ctx context.Context, d *schema.Resource
 	}
 
 	// get asset_id
-	// assetId := d.Get("asset_id").(string)
+	id := d.Get("asset_id").(string)
 
 	// wait for remoteSyncState
-	// err = waitForRemoteSyncState(ctx, dsfSecretManagerResourceType, assetId, m)
-	// if err != nil {
-	// 	diags = append(diags, diag.Diagnostic{
-	// 		Severity: diag.Warning,
-	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", assetId),
-	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
-	// 	})
-	// }
+	err = waitForRemoteSyncState(ctx, classificationType, id, m)
+	if err != nil {
+		diags = append(diags, diag.Diagnostic{
+			Severity: diag.Warning,
+			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+			Detail:   fmt.Sprintf("Error: %s\n", err),
+		})
+	}
 
 	// set ID
-	classificationId := createClassificationResponse.Data.ID
+	classificationId := createClassificationResponse.Data.IntegrationData.ID
 	d.SetId(classificationId)
 
 	// Set the rest of the state from the resource read

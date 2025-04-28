@@ -5,9 +5,9 @@ var requiredCiphertrustFieldsJson = `{
 	"description",
 	"type",
 	"status",
-	"display_name",
 	"hostname",
 	"port",
 	"cm_name",
-	"auth_method"
+	"auth_method",
+	"is_load_balancer",
 }`

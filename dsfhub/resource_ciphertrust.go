@@ -26,19 +26,19 @@ func resourceCiphertrust() *schema.Resource {
 				Description: "ID of the ciphertrust.",
 				Optional:    true,
 				Computed:    true,
-				// Default: nil,
+				Default: nil,
 			},
 			"description": {
 				Type:        schema.TypeString,
 				Description: "Description of the ciphertrust.",
 				Optional:    true,
-				Computed:    true,
+				// Computed:    true,
 				Default: "Used for integrating with Thales CipherTrust Manager capabilities.",
 			},
 			"type": {
 				Type:        schema.TypeString,
 				Description: "Type of the ciphertrust.",
-				Computed:    true,
+				Optional:    true,
 				Default: "CipherTrust Manager",
 			},
 			"status": {
@@ -128,20 +128,20 @@ func resourceCiphertrustCreateContext(ctx context.Context, d *schema.ResourceDat
 	}
 
 	// get asset_id
-	// assetId := d.Get("asset_id").(string)
+	id := d.Get("id").(string)
 
 	// wait for remoteSyncState
-	// err = waitForRemoteSyncState(ctx, dsfSecretManagerResourceType, assetId, m)
-	// if err != nil {
-	// 	diags = append(diags, diag.Diagnostic{
-	// 		Severity: diag.Warning,
-	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", assetId),
-	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
-	// 	})
-	// }
+	err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
+	if err != nil {
+		diags = append(diags, diag.Diagnostic{
+			Severity: diag.Warning,
+			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+			Detail:   fmt.Sprintf("Error: %s\n", err),
+		})
+	}
 
 	// set ID
-	ciphertrustId := createCiphertrustResponse.Data.ID
+	ciphertrustId := createCiphertrustResponse.Data.IntegrationData.ID
 	d.SetId(ciphertrustId)
 
 	// Set the rest of the state from the resource read
@@ -150,7 +150,6 @@ func resourceCiphertrustCreateContext(ctx context.Context, d *schema.ResourceDat
 	return diags
 }
 
-// TODO
 func resourceCiphertrustReadContext(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	client := m.(*Client)
 	ciphertrustId := d.Id()
@@ -206,25 +205,25 @@ func resourceCiphertrustUpdateContext(ctx context.Context, d *schema.ResourceDat
 	createIntegrationResource(&ciphertrust, ciphertrustType, d)
 
 	// update resource
-	log.Printf("[INFO] Updating ciphertrust for Type: %s and Id: %s\n", ciphertrust.Data.ServerType, ciphertrust.Data.IntegrationData.ID)
+	log.Printf("[INFO] Updating ciphertrust for Type: %s and Id: %s\n", ciphertrust.Data.IntegrationData.Type, ciphertrust.Data.IntegrationData.ID)
 	_, err := client.UpdateCiphertrust(ciphertrustId, ciphertrust)
 	if err != nil {
-		log.Printf("[ERROR] Updating Ciphertrust for Type: %s and Id: %s | err:%s\n", ciphertrust.Data.ServerType, ciphertrust.Data.IntegrationData.ID, err)
+		log.Printf("[ERROR] Updating Ciphertrust for Type: %s and Id: %s | err:%s\n", ciphertrust.Data.IntegrationData.Type, ciphertrust.Data.IntegrationData.ID, err)
 		return diag.FromErr(err)
 	}
 
 	// get asset_id
-	// assetId := d.Get("asset_id").(string)
+	id := d.Get("id").(string)
 
 	// wait for remoteSyncState
-	// err = waitForRemoteSyncState(ctx, dsfSecretManagerResourceType, assetId, m)
-	// if err != nil {
-	// 	diags = append(diags, diag.Diagnostic{
-	// 		Severity: diag.Warning,
-	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", assetId),
-	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
-	// 	})
-	// }
+	err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
+	if err != nil {
+		diags = append(diags, diag.Diagnostic{
+			Severity: diag.Warning,
+			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+			Detail:   fmt.Sprintf("Error: %s\n", err),
+		})
+	}
 
 	// set ID
 	d.SetId(ciphertrustId)

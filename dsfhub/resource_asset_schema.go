@@ -39,7 +39,7 @@ var integrationSchemaJson = `{
             "description": "The ID",
             "displayName": "Admin Email",
             "example": "some-id",
-            "id": "ID",
+            "id": "id",
             "optional": false,
             "required": true,
             "type": "string"
@@ -80,8 +80,8 @@ var integrationSchemaJson = `{
             "displayName": "Display Name",
             "example": "some-display-name",
             "id": "display_name",
-            "optional": false,
-            "required": true,
+            "optional": true,
+            "required": false,
             "type": "string"
         },
         "LastStatusUpdate": {
@@ -173,8 +173,8 @@ var integrationSchemaJson = `{
             "optional": true,
             "required": false,
             "type": "string"
-        },
-    },
+        }
+    }
 }`
 
 var assetSchemaJson = `{
