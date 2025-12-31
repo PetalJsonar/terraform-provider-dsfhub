@@ -10,7 +10,7 @@ description: |-
 
 Terraform resource for managing a DSFHub data source. 
 
-The `dsf_data_source` resource supports the configuration parameters necessary to onboard a data source to DSF Hub, which allows for the management of its audit data via data analytics and management tools. Documentation for the underlying API used in this resource can be found at [Onboarding and Managing Data Sources](https://docs-cybersec.thalesgroup.com/bundle/v15.0-sonar-user-guide/page/84558.htm).
+The `dsf_data_source` resource supports the configuration parameters necessary to onboard a data source to DSF Hub, which allows for the management of its audit data via data analytics and management tools. Documentation for the underlying API used in this resource can be found at [Onboarding and Managing Data Sources](https://docs-cybersec.thalesgroup.com/bundle/v15.2-sonar-user-guide/page/84558.htm).
 
 ## Data Source Types
 
