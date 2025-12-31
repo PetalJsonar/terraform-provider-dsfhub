@@ -15,8 +15,8 @@ Use the navigation to the left to read about the available resources and data so
 
 The following arguments are supported:
 
-* `dsfhub_host` - (Required) The DSF Hub endpoint for [DSF HUB API](https://docs-cybersec.thalesgroup.com/bundle/vtest-sonar-user-guide/page/84552.htm) operations. Example: 'https://yourDSFhostname:8443' or 'https://1.2.3.4:8443'.
-* `dsfhub_token` - (Required) The [DSF API Token](https://docs-cybersec.thalesgroup.com/bundle/vtest-sonar-user-guide/page/84555.htm) for API operations.
+* `dsfhub_host` - (Required) The DSF Hub endpoint for [DSF HUB API](https://docs-cybersec.thalesgroup.com/bundle/v15.0-sonar-user-guide/page/84552.htm) operations. Example: 'https://yourDSFhostname:8443' or 'https://1.2.3.4:8443'.
+* `dsfhub_token` - (Required) The [DSF API Token](https://docs-cybersec.thalesgroup.com/bundle/v15.0-sonar-user-guide/page/84555.htm) for API operations.
 * `insecure_ssl` - (Optional) The boolean flag that instructs the provider to allow for insecure SSL API calls to a DSF Hub instance to support tests against instances with self-signed certificates.
 * `sync_type` - (Optional) Determines whether to sync asset creation/update operations with the Agentless gateways. Defaults to SYNC_GW_BLOCKING. Available values: 
   - `SYNC_GW_BLOCKING`: The operation is synchronous and blocks until all gateways have been updated. This means that, if syncing the assets to Agentless Gateways fails, the provider will throw an error and not continue. This may result in a difference between the state of which Terraform is aware and the assets that were actually imported.

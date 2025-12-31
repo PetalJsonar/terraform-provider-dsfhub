@@ -11,7 +11,7 @@ description: |-
 Terraform resource for managing a DSFHub cloud account. 
 
 Documentation for the underlying APIs used in this resource can be found at
-[Onboarding and Managing Cloud Accounts](https://docs-cybersec.thalesgroup.com/bundle/vtest-sonar-user-guide/page/84557.htm).
+[Onboarding and Managing Cloud Accounts](https://docs-cybersec.thalesgroup.com/bundle/v15.0-sonar-user-guide/page/84557.htm).
 
 ## Cloud Account Types
 
