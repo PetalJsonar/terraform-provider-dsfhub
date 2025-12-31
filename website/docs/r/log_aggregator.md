@@ -12,7 +12,7 @@ Terraform resource for managing a DSFHub log aggregator.
 
 A log aggregator is a resource that serves as a log destination for one or more data sources in the DSF Hub.
 
-The `dsfhub_log_aggregator` resource supports the configuration parameters necessary for onboarding log aggregators that store logs for one or more data sources in the DSF Hub. Documentation for the underlying API used in this resource can be found at [Onboarding and Managing Log Aggregators](https://docs-cybersec.thalesgroup.com/bundle/v15.0-sonar-user-guide/page/84559.htm).
+The `dsfhub_log_aggregator` resource supports the configuration parameters necessary for onboarding log aggregators that store logs for one or more data sources in the DSF Hub. Documentation for the underlying API used in this resource can be found at [Onboarding and Managing Log Aggregators](https://docs-cybersec.thalesgroup.com/bundle/vtest-sonar-user-guide/page/84559.htm).
 
 ## Log Aggregator Types
 
