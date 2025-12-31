@@ -449,7 +449,7 @@ func resourceCloudAccount() *schema.Resource {
 			},
 			"server_type": {
 				Type:        schema.TypeString,
-				Description: "The type of server or data service to be created as a data source. The list of available data sources is documented at: https://docs.imperva.com/bundle/v4.11-sonar-user-guide/page/84552.htm",
+				Description: "The type of server or data service to be created as a data source.",
 				Required:    true,
 			},
 			"server_port": {

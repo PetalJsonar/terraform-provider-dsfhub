@@ -1,0 +1,53 @@
+name: Update DSF Hub Documentation Links
+
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+    inputs:
+      new_version:
+        description: "New DSF Hub version (X.Y)"
+        required: true
+        type: string
+
+jobs:
+  validate_arguments:
+    name: "Validate arguments"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check new_version
+        run: |
+          if [[ -z "${{ github.event.inputs.new_version }}" || ! "${{ github.event.inputs.new_version }}" =~ ^[0-9]+\.[0-9]$ ]]; then
+            echo "Error: new_version input is required and must be in the format X.Y where X and Y are digits."
+            exit 1
+          fi
+  update-docs:
+    if: github.ref != 'refs/heads/main'
+    runs-on: [ubuntu-latest]
+    defaults:
+      run:
+        working-directory: website/docs
+        shell: bash
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Update documentation links
+        run: |
+          new_version="${{ github.event.inputs.new_version }}"
+          # Extract the current version from the docs (first match)
+          old_version=$(grep -r -h --include='*.md' -oE 'bundle/v[0-9]+\.[0-9]+' . | head -1 | sed 's/bundle\///')
+          echo "Detected old version: $old_version"
+          # Escape the periods for sed
+          escaped_old_version=$(echo "$old_version" | sed 's/\./\\./g')
+          escaped_new_version=$(echo "v$new_version" | sed 's/\./\\./g')
+          echo "Replacing with new version: $new_version"
+          # Replace all occurrences of the old version with the new version
+          find . -type f -name "*.md" -print0 | xargs -0 -I {} sh -c 'sed "s/bundle\/$1/bundle\/$2/g" "$3" > "$3.tmp" && mv "$3.tmp" "$3"' -- "$escaped_old_version" "$escaped_new_version" {}
+
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automatic commit to update documentation links for DSF Hub release v${{ github.event.inputs.new_version }}
