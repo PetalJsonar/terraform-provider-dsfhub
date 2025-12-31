@@ -23,7 +23,7 @@ jobs:
           fi
   update-docs:
     if: github.ref != 'refs/heads/main'
-    runs-on: [self-hosted, ubuntu]
+    runs-on: [ubuntu-latest]
     defaults:
       run:
         working-directory: website/docs
