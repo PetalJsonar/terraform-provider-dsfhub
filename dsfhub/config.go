@@ -16,8 +16,8 @@ type Config struct {
 	// InsecureSSL
 	InsecureSSL bool
 
-	// Params including syncType
-	Params map[string]string
+	// Params including syncType, acknowledgeDeletionImpact, forceDelete
+	Params map[string]interface{}
 }
 
 var validSyncTypes = []string{"SYNC_GW_BLOCKING", "SYNC_GW_NON_BLOCKING", "DO_NOT_SYNC_GW"}
@@ -38,8 +38,20 @@ func (c *Config) Client() (interface{}, error) {
 	}
 	// Check sync_type param
 	if syncType, exists := c.Params["syncType"]; exists {
-		if !isValidSyncType(syncType) {
+		if !isValidSyncType(syncType.(string)) {
 			return nil, errors.New(invalidSyncTypeMessage)
+		}
+	}
+
+	if acknowledgeDeletionImpact, exists := c.Params["acknowledgeDeletionImpact"]; exists {
+		if _, ok := acknowledgeDeletionImpact.(string); !ok {
+			return nil, errors.New("acknowledge_deletion_impact must be a string value of 'true' or 'false'")
+		}
+	}
+
+	if forceDelete, exists := c.Params["forceDelete"]; exists {
+		if _, ok := forceDelete.(string); !ok {
+			return nil, errors.New("force_delete must be a string value of 'true' or 'false'")
 		}
 	}
 

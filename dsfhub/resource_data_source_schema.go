@@ -9,56 +9,35 @@ var ignoreDataSourceParamsByServerType = map[string]map[string]bool{
 	"AWS LAKE FORMATION":                {"arn": true, "asset_display_name": true},
 	"AWS NEPTUNE CLUSTER":               {"arn": true, "asset_display_name": true},
 	"AWS NEPTUNE":                       {"arn": true, "asset_display_name": true},
+	"AWS OPENSEARCH":                    {"arn": true, "asset_display_name": true},
 	"AWS RDS AURORA MYSQL CLUSTER":      {"arn": true, "asset_display_name": true},
 	"AWS RDS AURORA MYSQL":              {"arn": true, "asset_display_name": true},
 	"AWS RDS AURORA POSTGRESQL CLUSTER": {"arn": true, "asset_display_name": true},
 	"AWS RDS AURORA POSTGRESQL":         {"arn": true, "asset_display_name": true},
+	"AWS RDS DB2":                       {"arn": true, "asset_display_name": true},
 	"AWS RDS MARIADB":                   {"arn": true, "asset_display_name": true},
 	"AWS RDS MS SQL SERVER":             {"arn": true, "asset_display_name": true},
 	"AWS RDS MYSQL":                     {"arn": true, "asset_display_name": true},
 	"AWS RDS ORACLE":                    {"arn": true, "asset_display_name": true},
 	"AWS RDS POSTGRESQL":                {"arn": true, "asset_display_name": true},
+	"AWS RDS POSTGRESQL CLUSTER":        {"arn": true, "asset_display_name": true},
 	"AWS REDSHIFT":                      {"arn": true, "asset_display_name": true},
+	"AWS REDSHIFT SERVERLESS":           {"arn": true, "asset_display_name": true},
 	"AWS S3":                            {"arn": true, "asset_display_name": true},
 	"AZURE COSMOSDB MONGO":              {"arn": true, "asset_display_name": true},
 	"AZURE COSMOSDB TABLE":              {"arn": true, "asset_display_name": true},
 	"AZURE COSMOSDB":                    {"arn": true, "asset_display_name": true},
+	"AZURE DATABRICKS WORKSPACE":        {"arn": true, "asset_display_name": true},
+	"AZURE DATA EXPLORER":               {"arn": true, "asset_display_name": true},
 	"AZURE MARIADB":                     {"arn": true, "asset_display_name": true},
 	"AZURE MS SQL SERVER":               {"arn": true, "asset_display_name": true},
 	"AZURE MYSQL":                       {"arn": true, "asset_display_name": true},
+	"AZURE MYSQL FLEXIBLE":              {"arn": true, "asset_display_name": true},
 	"AZURE POSTGRESQL":                  {"arn": true, "asset_display_name": true},
 	"AZURE POSTGRESQL FLEXIBLE":         {"arn": true, "asset_display_name": true},
 	"AZURE SQL MANAGED INSTANCE":        {"arn": true, "asset_display_name": true},
 	"AZURE STORAGE ACCOUNT":             {"arn": true, "asset_display_name": true},
 }
-
-//var ignoreDataSourceConnectionFields = map[string]bool{
-//	"access_key":               true,
-//	"access_method":            true,
-//	"application_id":           true,
-//	"aws_iam_server_id":        true,
-//	"azure_storage_account":    true,
-//	"azure_storage_container":  true,
-//	"azure_storage_secret_key": true,
-//	"base_dn":                  true,
-//	"credential_expiry":        true,
-//	"directory_id":             true,
-//	"eventhub_access_key":      true,
-//	"eventhub_access_policy":   true,
-//	"eventhub_name":            true,
-//	"eventhub_namespace":       true,
-//	"format":                   true,
-//	"nonce":                    true,
-//	"ntlm":                     true,
-//	"page_size":                true,
-//	"port":                     true,
-//	"protocol":                 true,
-//	"query":                    true,
-//	"secure_connection":        true,
-//	"store_aws_credentials":    true,
-//	"url":                      true,
-//	"v2_key_engine":            true,
-//}
 
 var requiredDataSourceFieldsJson = `{
     "ServerTypes": {
@@ -316,6 +295,20 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "AWS OPENSEARCH": {
+            "auth_mechanisms": {
+                "default": [
+                    "reason"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "arn",
+                "server_host_name",
+                "admin_email"
+            ]
+        },
         "AWS RDS AURORA MYSQL": {
             "auth_mechanisms": {
                 "password": [
@@ -376,6 +369,24 @@ var requiredDataSourceFieldsJson = `{
                 "gateway_id",
                 "asset_display_name",
                 "arn",
+                "server_host_name",
+                "admin_email"
+            ]
+        },
+        "AWS RDS DB2": {
+            "auth_mechanisms": {
+                "password": [
+                    "reason",
+                    "username",
+                    "password",
+                    "database_name"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "arn",
+                "resource_id",
                 "server_host_name",
                 "admin_email"
             ]
@@ -467,6 +478,22 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "AWS RDS POSTGRESQL CLUSTER": {
+            "auth_mechanisms": {
+                "password": [
+                    "reason",
+                    "username",
+                    "password"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "arn",
+                "server_host_name",
+                "admin_email"
+            ]
+        },
         "AWS REDSHIFT": {
             "auth_mechanisms": {
                 "aws_credentials": [
@@ -476,6 +503,23 @@ var requiredDataSourceFieldsJson = `{
                     "access_id",
                     "aws_connection_id"
                 ],
+                "password": [
+                    "reason",
+                    "username",
+                    "password"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "arn",
+                "server_host_name",
+                "server_ip",
+                "admin_email"
+            ]
+        },
+        "AWS REDSHIFT SERVERLESS": {
+            "auth_mechanisms": {
                 "password": [
                     "reason",
                     "username",
@@ -550,6 +594,36 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "AZURE DATABRICKS WORKSPACE": {
+            "auth_mechanisms": {
+                "default": [
+                    "reason"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "AZURE DATA EXPLORER": {
+            "auth_mechanisms": {
+                "default": [
+                    "reason"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_port",
+                "admin_email"
+            ]
+        },
         "AZURE MARIADB": {
             "auth_mechanisms": {
                 "password": [
@@ -587,6 +661,23 @@ var requiredDataSourceFieldsJson = `{
             ]
         },
         "AZURE MYSQL": {
+            "auth_mechanisms": {
+                "password": [
+                    "reason",
+                    "username",
+                    "password"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "admin_email",
+                "location"
+            ]
+        },
+        "AZURE MYSQL FLEXIBLE": {
             "auth_mechanisms": {
                 "password": [
                     "reason",
@@ -685,6 +776,24 @@ var requiredDataSourceFieldsJson = `{
                 "server_host_name",
                 "server_ip",
                 "server_port",
+                "admin_email"
+            ]
+        },
+        "CLICKHOUSE": {
+            "auth_mechanisms": {
+                "password": [
+                    "reason",
+                    "username",
+                    "password"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "database_name",
                 "admin_email"
             ]
         },
@@ -814,6 +923,31 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "DRUID CLUSTER": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "admin_email"
+            ]
+        },
+        "DRUID": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email",
+                "cluster_id",
+                "cluster_name"
+            ]
+        },
         "EDB POSTGRESQL": {
             "auth_mechanisms": {
                 "password": [
@@ -876,6 +1010,58 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "GAUSSDB": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "GCP ALLOYDB POSTGRESQL": {
+            "auth_mechanisms": {
+                "default": [
+                    "reason"
+                ],
+                "service_account": [
+                    "reason",
+                    "key_file"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "GCP ALLOYDB POSTGRESQL CLUSTER": {
+            "auth_mechanisms": {
+                "default": [
+                    "reason"
+                ],
+                "service_account": [
+                    "reason",
+                    "key_file"
+                ]
+            },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
         "GCP BIGQUERY": {
             "auth_mechanisms": {
                 "default": [
@@ -906,6 +1092,18 @@ var requiredDataSourceFieldsJson = `{
                     "key_file"
                 ]
             },
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "GCP FIRESTORE": {
+            "auth_mechanisms": {},
             "required": [
                 "gateway_id",
                 "asset_display_name",
@@ -983,6 +1181,42 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "GEMFIRE": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "GRAINITE": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "GRIDGAIN IGNITE": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
         "HBASE": {
             "auth_mechanisms": {
                 "kerberos": [
@@ -1033,18 +1267,6 @@ var requiredDataSourceFieldsJson = `{
                     "database_name"
                 ]
             },
-            "required": [
-                "gateway_id",
-                "asset_display_name",
-                "asset_id",
-                "server_host_name",
-                "server_ip",
-                "server_port",
-                "admin_email"
-            ]
-        },
-        "HORTONWORKS": {
-            "auth_mechanisms": {},
             "required": [
                 "gateway_id",
                 "asset_display_name",
@@ -1114,14 +1336,8 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
-        "KINETICA": {
-            "auth_mechanisms": {
-                "password": [
-                    "reason",
-                    "username",
-                    "password"
-                ]
-            },
+        "MAPR FS": {
+            "auth_mechanisms": {},
             "required": [
                 "gateway_id",
                 "asset_display_name",
@@ -1132,12 +1348,8 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
-        "KNOX GATEWAY": {
-            "auth_mechanisms": {
-                "default": [
-                    "reason"
-                ]
-            },
+        "MAPR HBASE": {
+            "auth_mechanisms": {},
             "required": [
                 "gateway_id",
                 "asset_display_name",
@@ -1424,6 +1636,18 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
+        "SAP IQ": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
         "SCYLLADB": {
             "auth_mechanisms": {
                 "password": [
@@ -1439,6 +1663,17 @@ var requiredDataSourceFieldsJson = `{
                 "server_host_name",
                 "server_ip",
                 "server_port",
+                "admin_email"
+            ]
+        },
+        "SINGLESTORE": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
                 "admin_email"
             ]
         },
@@ -1469,11 +1704,11 @@ var requiredDataSourceFieldsJson = `{
                     "snowflake_role",
                     "token_endpoint"
                 ],
-                "password": [
+                "key_file": [
                     "reason",
+                    "access_id",
                     "username",
-                    "password",
-                    "access_id"
+                    "key_file"
                 ]
             },
             "required": [
@@ -1546,10 +1781,25 @@ var requiredDataSourceFieldsJson = `{
                 "admin_email"
             ]
         },
-        "YARN": {
+        "TIGERGRAPH": {
+            "auth_mechanisms": {},
+            "required": [
+                "gateway_id",
+                "asset_display_name",
+                "asset_id",
+                "server_host_name",
+                "server_ip",
+                "server_port",
+                "admin_email"
+            ]
+        },
+        "VERTICA": {
             "auth_mechanisms": {
-                "default": [
-                    "reason"
+                "password": [
+                    "reason",
+                    "username",
+                    "password",
+                    "database_name"
                 ]
             },
             "required": [
@@ -1558,7 +1808,6 @@ var requiredDataSourceFieldsJson = `{
                 "asset_id",
                 "server_host_name",
                 "server_ip",
-                "server_port",
                 "admin_email"
             ]
         },

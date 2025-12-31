@@ -35,7 +35,7 @@ func dataSourceCiphertrustRead(ctx context.Context, d *schema.ResourceData, m in
 	if ciphertrustReadResponse != nil {
 		log.Printf("[INFO] Reading Ciphertrust with integrationId: %s | err: %s\n", curIntegrationId, err)
 	}
-	integrationId := ciphertrustReadResponse.Data.IntegrationData.ID
+	integrationId := ciphertrustReadResponse.IntegrationData.ID
 	d.Set("id", integrationId)
 	d.SetId(integrationId)
 

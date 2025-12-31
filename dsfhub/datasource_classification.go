@@ -35,7 +35,7 @@ func dataSourceClassificationRead(ctx context.Context, d *schema.ResourceData, m
 	if classificationReadResponse != nil {
 		log.Printf("[INFO] Reading Classification with integrationId: %s | err: %s\n", curIntegrationId, err)
 	}
-	integrationId := classificationReadResponse.Data.IntegrationData.ID
+	integrationId := classificationReadResponse.IntegrationData.ID
 	d.Set("asset_id", integrationId)
 	d.SetId(integrationId)
 

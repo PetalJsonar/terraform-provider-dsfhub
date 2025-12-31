@@ -1,9 +1,7 @@
 package dsfhub
 
 import (
-	"bytes"
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
@@ -26,7 +24,7 @@ func resourceCiphertrust() *schema.Resource {
 				Description: "ID of the ciphertrust.",
 				Optional:    true,
 				Computed:    true,
-				Default: nil,
+				Default:     nil,
 			},
 			"description": {
 				Type:        schema.TypeString,
@@ -39,13 +37,13 @@ func resourceCiphertrust() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Type of the ciphertrust.",
 				Optional:    true,
-				Default: "CipherTrust Manager",
+				Default:     "CipherTrust Manager",
 			},
 			"status": {
 				Type:        schema.TypeString,
 				Description: "Status of the ciphertrust.",
 				Optional:    true,
-				Default: "N/A",
+				Default:     "N/A",
 			},
 			"display_name": {
 				Type:        schema.TypeString,
@@ -56,7 +54,7 @@ func resourceCiphertrust() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Timestamp of the last status update.",
 				Optional:    true,
-				Default: nil,
+				Default:     nil,
 			},
 			"hostname": {
 				Type:        schema.TypeString,
@@ -77,7 +75,7 @@ func resourceCiphertrust() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Password for authentication.",
 				Optional:    true,
-				Sensitive: true,
+				Sensitive:   true,
 			},
 			"cm_name": {
 				Type:        schema.TypeString,
@@ -93,7 +91,7 @@ func resourceCiphertrust() *schema.Resource {
 			"auth_method": {
 				Type:        schema.TypeString,
 				Description: "Authentication method for the ciphertrust.",
-				Required:   true,
+				Required:    true,
 			},
 			"registration_token": {
 				Type:        schema.TypeString,
@@ -115,7 +113,7 @@ func resourceCiphertrustCreateContext(ctx context.Context, d *schema.ResourceDat
 	// }
 
 	// convert provided fields into API payload
-	ciphertrust := ResourceWrapper{}
+	ciphertrust := IntegrationResourceWrapper{}
 	ciphertrustType := d.Get("type").(string)
 	createIntegrationResource(&ciphertrust, ciphertrustType, d)
 
@@ -128,20 +126,20 @@ func resourceCiphertrustCreateContext(ctx context.Context, d *schema.ResourceDat
 	}
 
 	// get asset_id
-	id := d.Get("id").(string)
+	// id := d.Get("id").(string)
 
-	// wait for remoteSyncState
-	err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
-	if err != nil {
-		diags = append(diags, diag.Diagnostic{
-			Severity: diag.Warning,
-			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
-			Detail:   fmt.Sprintf("Error: %s\n", err),
-		})
-	}
+	// // wait for remoteSyncState
+	// err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
+	// if err != nil {
+	// 	diags = append(diags, diag.Diagnostic{
+	// 		Severity: diag.Warning,
+	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
+	// 	})
+	// }
 
 	// set ID
-	ciphertrustId := createCiphertrustResponse.Data.IntegrationData.ID
+	ciphertrustId := createCiphertrustResponse.IntegrationData.ID
 	d.SetId(ciphertrustId)
 
 	// Set the rest of the state from the resource read
@@ -167,22 +165,22 @@ func resourceCiphertrustReadContext(ctx context.Context, d *schema.ResourceData,
 		log.Printf("[INFO] Reading Ciphertrust with ciphertrustId: %s | err: %s\n", ciphertrustId, err)
 	}
 
-	log.Printf("[DEBUG] ciphertrustReadResponse: %s\n", ciphertrustReadResponse.Data.IntegrationData.ID)
+	log.Printf("[DEBUG] ciphertrustReadResponse: %s\n", ciphertrustReadResponse.IntegrationData.ID)
 	// Set returned and computed values
-	d.Set("id", ciphertrustReadResponse.Data.IntegrationData.ID)
-	d.Set("description", ciphertrustReadResponse.Data.IntegrationData.Description)
-	d.Set("type", ciphertrustReadResponse.Data.IntegrationData.Type)
-	d.Set("status", ciphertrustReadResponse.Data.IntegrationData.Status)
-	d.Set("display_name", ciphertrustReadResponse.Data.IntegrationData.DisplayName)
-	d.Set("last_status_update", ciphertrustReadResponse.Data.IntegrationData.LastStatusUpdate)
-	d.Set("hostname", ciphertrustReadResponse.Data.IntegrationData.Hostname)
-	d.Set("port", ciphertrustReadResponse.Data.IntegrationData.Port)
-	d.Set("username", ciphertrustReadResponse.Data.IntegrationData.Username)
-	d.Set("password", ciphertrustReadResponse.Data.IntegrationData.Password)
-	d.Set("cm_name", ciphertrustReadResponse.Data.IntegrationData.CMName)
-	d.Set("is_load_balancer", ciphertrustReadResponse.Data.IntegrationData.IsLoadBalancer)
-	d.Set("auth_method", ciphertrustReadResponse.Data.IntegrationData.AuthMethod)
-	d.Set("registration_token", ciphertrustReadResponse.Data.IntegrationData.RegistrationToken)
+	d.Set("id", ciphertrustReadResponse.IntegrationData.ID)
+	d.Set("description", ciphertrustReadResponse.IntegrationData.Description)
+	d.Set("type", ciphertrustReadResponse.IntegrationData.Type)
+	d.Set("status", ciphertrustReadResponse.IntegrationData.Status)
+	d.Set("display_name", ciphertrustReadResponse.IntegrationData.DisplayName)
+	d.Set("last_status_update", ciphertrustReadResponse.IntegrationData.LastStatusUpdate)
+	d.Set("hostname", ciphertrustReadResponse.IntegrationData.Hostname)
+	d.Set("port", ciphertrustReadResponse.IntegrationData.Port)
+	d.Set("username", ciphertrustReadResponse.IntegrationData.Username)
+	d.Set("password", ciphertrustReadResponse.IntegrationData.Password)
+	d.Set("cm_name", ciphertrustReadResponse.IntegrationData.CMName)
+	d.Set("is_load_balancer", ciphertrustReadResponse.IntegrationData.IsLoadBalancer)
+	d.Set("auth_method", ciphertrustReadResponse.IntegrationData.AuthMethod)
+	d.Set("registration_token", ciphertrustReadResponse.IntegrationData.RegistrationToken)
 
 	log.Printf("[INFO] Finished reading ciphertrust with ciphertrustId: %s\n", ciphertrustId)
 
@@ -200,30 +198,30 @@ func resourceCiphertrustUpdateContext(ctx context.Context, d *schema.ResourceDat
 	// }
 
 	// convert provided fields into API payload
-	ciphertrust := ResourceWrapper{}
+	ciphertrust := IntegrationResourceWrapper{}
 	ciphertrustType := d.Get("type").(string)
 	createIntegrationResource(&ciphertrust, ciphertrustType, d)
 
 	// update resource
-	log.Printf("[INFO] Updating ciphertrust for Type: %s and Id: %s\n", ciphertrust.Data.IntegrationData.Type, ciphertrust.Data.IntegrationData.ID)
+	log.Printf("[INFO] Updating ciphertrust for Type: %s and Id: %s\n", ciphertrust.IntegrationData.Type, ciphertrust.IntegrationData.ID)
 	_, err := client.UpdateCiphertrust(ciphertrustId, ciphertrust)
 	if err != nil {
-		log.Printf("[ERROR] Updating Ciphertrust for Type: %s and Id: %s | err:%s\n", ciphertrust.Data.IntegrationData.Type, ciphertrust.Data.IntegrationData.ID, err)
+		log.Printf("[ERROR] Updating Ciphertrust for Type: %s and Id: %s | err:%s\n", ciphertrust.IntegrationData.Type, ciphertrust.IntegrationData.ID, err)
 		return diag.FromErr(err)
 	}
 
 	// get asset_id
-	id := d.Get("id").(string)
+	// id := d.Get("id").(string)
 
-	// wait for remoteSyncState
-	err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
-	if err != nil {
-		diags = append(diags, diag.Diagnostic{
-			Severity: diag.Warning,
-			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
-			Detail:   fmt.Sprintf("Error: %s\n", err),
-		})
-	}
+	// // wait for remoteSyncState
+	// err = waitForRemoteSyncState(ctx, ciphertrustType, id, m)
+	// if err != nil {
+	// 	diags = append(diags, diag.Diagnostic{
+	// 		Severity: diag.Warning,
+	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
+	// 	})
+	// }
 
 	// set ID
 	d.SetId(ciphertrustId)
@@ -242,77 +240,40 @@ func resourceCiphertrustDeleteContext(ctx context.Context, d *schema.ResourceDat
 
 	ciphertrustDeleteResponse, err := client.DeleteCiphertrust(ciphertrustId)
 	if ciphertrustDeleteResponse != nil {
-		log.Printf("[INFO] DSF ciphertrust has already been deleted with ciphertrustId: %s | err: %s\n", ciphertrustId, err)
+		log.Printf("[INFO] DSF integration ciphertrust has already been deleted with ciphertrustId: %s | err: %s\n", ciphertrustId, err)
 	}
 
 	return nil
 }
 
 // TODO
-func resourceCiphertrustDatabaseDetailsHash(v interface{}) int {
-	var buf bytes.Buffer
-	m := v.(map[string]interface{})
+// func resourceCiphertrustDatabaseDetailsHash(v interface{}) int {
+// 	var buf bytes.Buffer
+// 	m := v.(map[string]interface{})
 
-	// if v, ok := m["id"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["id"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	// if v, ok := m["description"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["description"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	// if v, ok := m["type"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["type"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	// if v, ok := m["status"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["status"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	// if v, ok := m["display_name"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["display_name"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	// if v, ok := m["last_status_update"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
+// if v, ok := m["last_status_update"]; ok {
+// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+// }
 
-	if v, ok := m["database_details"]; ok {
-		databaseDetails := v.(*schema.Set).List()
-		for _, databaseDetail := range databaseDetails {
-			databaseDetailMap := databaseDetail.(map[string]interface{})
-			if v, ok := databaseDetailMap["database_type"]; ok {
-				buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-			}
-			if v, ok := databaseDetailMap["mongo_configuration"]; ok {
-				buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-			}
-		}
-	}
-	if v, ok := m["storage_details"]; ok {
-		storageDetails := v.(*schema.Set).List()
-		for _, storageDetail := range storageDetails {
-			storageDetailMap := storageDetail.(map[string]interface{})
-			if v, ok := storageDetailMap["storage_type"]; ok {
-				buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-			}
-			if v, ok := storageDetailMap["s3_bucket_configuration"]; ok {
-				s3BucketDetails := v.(*schema.Set).List()
-				for _, s3BucketDetail := range s3BucketDetails {
-					s3BucketDetailMap := s3BucketDetail.(map[string]interface{})
-					if v, ok := s3BucketDetailMap["bucket_name"]; ok {
-						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-					}
-					if v, ok := s3BucketDetailMap["cloud_name"]; ok {
-						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-					}
-					if v, ok := s3BucketDetailMap["aws_region"]; ok {
-						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-					}
-				}
-			}
-		}
-	}
-
-	return PositiveHash(buf.String())
-}
+// 	return PositiveHash(buf.String())
+// }

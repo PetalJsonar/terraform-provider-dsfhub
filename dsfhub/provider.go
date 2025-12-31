@@ -1,6 +1,8 @@
 package dsfhub
 
 import (
+	"strconv"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
@@ -31,6 +33,12 @@ func init() {
 			"SYNC_GW_NON_BLOCKING: The operation is asynchronous and returns immediately.\n" +
 			"DO_NOT_SYNC_GW: The operation is synchronous and does not update the gateways.\n" +
 			"Default: SYNC_GW_BLOCKING",
+
+		"acknowledge_deletion_impact": "A boolean flag to acknowledge that deleting the CipherTrust integration will have an impact on FAM assets.\n" +
+			"Example: 'true/false'. Can be set via TF_VAR_acknowledge_deletion_impact environment variable.",
+
+		"force_delete": "A boolean flag to force deletion of classification integration even if the CipherTrust Manager is not accessible (e.g., decommissioned).\n" +
+			"Example: 'true/false'. Can be set via TF_VAR_force_delete environment variable.",
 	}
 }
 
@@ -39,8 +47,10 @@ func providerConfigure(d *schema.ResourceData, terraformVersion string) (interfa
 		DSFHUBToken: d.Get("dsfhub_token").(string),
 		DSFHUBHost:  d.Get("dsfhub_host").(string),
 		InsecureSSL: d.Get("insecure_ssl").(bool),
-		Params: map[string]string{
-			"syncType": d.Get("sync_type").(string),
+		Params: map[string]interface{}{
+			"syncType":                  d.Get("sync_type").(string),
+			"acknowledgeDeletionImpact": strconv.FormatBool(d.Get("acknowledge_deletion_impact").(bool)),
+			"forceDelete":               strconv.FormatBool(d.Get("force_delete").(bool)),
 		},
 	}
 
@@ -74,6 +84,18 @@ func Provider() *schema.Provider {
 				Optional:    true,
 				DefaultFunc: schema.EnvDefaultFunc("SYNC_TYPE", "SYNC_GW_BLOCKING"),
 				Description: descriptions["sync_type"],
+			},
+			"acknowledge_deletion_impact": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("ACKNOWLEDGE_DELETION_IMPACT", false),
+				Description: descriptions["acknowledge_deletion_impact"],
+			},
+			"force_delete": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				DefaultFunc: schema.EnvDefaultFunc("FORCE_DELETE", false),
+				Description: descriptions["force_delete"],
 			},
 		},
 

@@ -25,7 +25,7 @@ func resourceClassification() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "ID of the classification.",
 				Optional:    true,
-				Computed:   true,
+				Computed:    true,
 			},
 			"description": {
 				Type:        schema.TypeString,
@@ -44,7 +44,7 @@ func resourceClassification() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Status of the classification.",
 				Optional:    true,
-				Default: "N/A",
+				Default:     "N/A",
 			},
 			"display_name": {
 				Type:        schema.TypeString,
@@ -55,7 +55,7 @@ func resourceClassification() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Timestamp of the last status update.",
 				Optional:    true,
-				Default: nil,
+				Default:     nil,
 			},
 			"database_details": {
 				Type:        schema.TypeSet,
@@ -67,7 +67,7 @@ func resourceClassification() *schema.Resource {
 							Type:        schema.TypeString,
 							Description: "Name of the database.",
 							Optional:    true,
-							Default:    "MongoDB",
+							Default:     "MongoDB",
 						},
 						"mongo_configuration": {
 							Type:        schema.TypeString,
@@ -88,7 +88,7 @@ func resourceClassification() *schema.Resource {
 							Type:        schema.TypeString,
 							Description: "Name of the storage.",
 							Optional:    true,
-							Default:    "AWS - S3 Bucket",
+							Default:     "AWS - S3 Bucket",
 						},
 						"s3_bucket_configuration": {
 							Type:        schema.TypeSet,
@@ -105,7 +105,7 @@ func resourceClassification() *schema.Resource {
 										Type:        schema.TypeString,
 										Description: "Name of the cloud provider.",
 										Optional:    true,
-										Default:    "AWS",
+										Default:     "AWS",
 									},
 									"aws_region": {
 										Type:        schema.TypeString,
@@ -117,7 +117,7 @@ func resourceClassification() *schema.Resource {
 						},
 					},
 				},
-    		},
+			},
 		},
 	}
 }
@@ -132,7 +132,7 @@ func resourceClassificationCreateContext(ctx context.Context, d *schema.Resource
 	// }
 
 	// convert provided fields into API payload
-	classification := ResourceWrapper{}
+	classification := IntegrationResourceWrapper{}
 	classificationType := d.Get("type").(string)
 	createIntegrationResource(&classification, classificationType, d)
 
@@ -145,20 +145,20 @@ func resourceClassificationCreateContext(ctx context.Context, d *schema.Resource
 	}
 
 	// get asset_id
-	id := d.Get("asset_id").(string)
+	// id := d.Get("asset_id").(string)
 
-	// wait for remoteSyncState
-	err = waitForRemoteSyncState(ctx, classificationType, id, m)
-	if err != nil {
-		diags = append(diags, diag.Diagnostic{
-			Severity: diag.Warning,
-			Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
-			Detail:   fmt.Sprintf("Error: %s\n", err),
-		})
-	}
+	// // wait for remoteSyncState
+	// err = waitForRemoteSyncState(ctx, classificationType, id, m)
+	// if err != nil {
+	// 	diags = append(diags, diag.Diagnostic{
+	// 		Severity: diag.Warning,
+	// 		Summary:  fmt.Sprintf("Error while waiting for remoteSyncState = \"SYNCED\" for asset: %s", id),
+	// 		Detail:   fmt.Sprintf("Error: %s\n", err),
+	// 	})
+	// }
 
 	// set ID
-	classificationId := createClassificationResponse.Data.IntegrationData.ID
+	classificationId := createClassificationResponse.IntegrationData.ID
 	d.SetId(classificationId)
 
 	// Set the rest of the state from the resource read
@@ -185,111 +185,14 @@ func resourceClassificationReadContext(ctx context.Context, d *schema.ResourceDa
 		log.Printf("[INFO] Reading Classification with classificationId: %s | err: %s\n", classificationId, err)
 	}
 
-	log.Printf("[DEBUG] classificationReadResponse: %s\n", classificationReadResponse.Data.IntegrationData.ID)
+	log.Printf("[DEBUG] classificationReadResponse: %s\n", classificationReadResponse.IntegrationData.ID)
 	// Set returned and computed values
-	d.Set("id", classificationReadResponse.Data.IntegrationData.ID)
-	d.Set("description", classificationReadResponse.Data.IntegrationData.Description)
-	d.Set("type", classificationReadResponse.Data.IntegrationData.Type)
-	d.Set("status", classificationReadResponse.Data.IntegrationData.Status)
-	d.Set("display_name", classificationReadResponse.Data.IntegrationData.DisplayName)
-	d.Set("last_status_update", classificationReadResponse.Data.IntegrationData.LastStatusUpdate)
-	// if secretManagerReadResponse.Data.AssetData.ServerPort != nil {
-	// 	var serverPort string
-	// 	if serverPortNum, ok := secretManagerReadResponse.Data.AssetData.ServerPort.(float64); ok {
-	// 		serverPort = fmt.Sprintf("%d", int(serverPortNum))
-	// 	} else {
-	// 		serverPort = secretManagerReadResponse.Data.AssetData.ServerPort.(string)
-	// 	}
-	// 	d.Set("server_port", serverPort)
-	// }
-	// d.Set("server_type", secretManagerReadResponse.Data.ServerType)
-	// d.Set("used_for", secretManagerReadResponse.Data.AssetData.UsedFor)
-	// d.Set("version", secretManagerReadResponse.Data.AssetData.Version)
-
-	// if secretManagerReadResponse.Data.AssetData.AwsProxyConfig != nil {
-	// 	awsProxyConfig := &schema.Set{F: resourceAssetDataAWSProxyConfigHash}
-	// 	awsProxyConfigMap := map[string]interface{}{}
-	// 	awsProxyConfigMap["http"] = secretManagerReadResponse.Data.AssetData.AwsProxyConfig.HTTP
-	// 	awsProxyConfigMap["https"] = secretManagerReadResponse.Data.AssetData.AwsProxyConfig.HTTPS
-	// 	awsProxyConfig.Add(awsProxyConfigMap)
-	// 	d.Set("aws_proxy_config", awsProxyConfig)
-	// }
-
-	// if secretManagerReadResponse.Data.AssetData.ServiceEndpoints != nil {
-	// 	serviceEndpoints := &schema.Set{F: resourceAssetDataServiceEndpointsHash}
-	// 	serviceEndpointsMap := map[string]interface{}{}
-	// 	serviceEndpointsMap["logs"] = secretManagerReadResponse.Data.AssetData.ServiceEndpoints.Logs
-	// 	serviceEndpoints.Add(serviceEndpointsMap)
-	// 	d.Set("service_endpoints", serviceEndpoints)
-	// }
-
-	// connections := &schema.Set{F: resourceSecretManagerConnectionHash}
-	// for _, v := range secretManagerReadResponse.Data.AssetData.Connections {
-	// 	connection := map[string]interface{}{}
-	// 	connection["access_id"] = v.ConnectionData.AccessID
-	// 	connection["aws_iam_server_id"] = v.ConnectionData.AwsIamServerID
-	// 	connection["ca_certs_path"] = v.ConnectionData.CaCertsPath
-	// 	connection["cert_file"] = v.ConnectionData.CaFile
-	// 	connection["credential_expiry"] = v.ConnectionData.CredentialExpiry
-	// 	connection["external_id"] = v.ConnectionData.ExternalID
-	// 	connection["key_file"] = v.ConnectionData.KeyFile
-	// 	connection["nonce"] = v.ConnectionData.Nonce
-	// 	connection["protocol"] = v.ConnectionData.Protocol
-	// 	connection["query"] = v.ConnectionData.Query
-	// 	connection["reason"] = v.Reason
-	// 	connection["region"] = v.ConnectionData.Region
-	// 	connection["role_name"] = v.ConnectionData.RoleName
-	// 	connection["secret_key"] = v.ConnectionData.SecretKey
-	// 	connection["self_signed"] = v.ConnectionData.SelfSigned
-	// 	connection["ssl"] = v.ConnectionData.Ssl
-	// 	connection["store_aws_credentials"] = v.ConnectionData.StoreAwsCredentials
-	// 	connection["username"] = v.ConnectionData.Username
-	// 	connection["v2_key_engine"] = v.ConnectionData.V2KeyEngine
-
-	// 	// Handle structs
-	// 	if v.ConnectionData.AmazonSecret != nil {
-	// 		amazonSecret := &schema.Set{F: resourceConnectionDataAmazonSecretHash}
-	// 		amazonSecretMap := map[string]interface{}{}
-	// 		//amazonSecretMap["field_mapping"] = v.ConnectionData.AmazonSecret.FieldMapping
-	// 		amazonSecretMap["secret_asset_id"] = v.ConnectionData.AmazonSecret.SecretAssetID
-	// 		amazonSecretMap["secret_name"] = v.ConnectionData.AmazonSecret.SecretName
-	// 		amazonSecret.Add(amazonSecretMap)
-	// 		connection["amazon_secret"] = amazonSecret
-	// 	}
-
-	// 	if v.ConnectionData.CredentialFields != nil {
-	// 		credentialFields := &schema.Set{F: resourceConnectionDataCredentialFieldsHash}
-	// 		credentialFieldsMap := map[string]interface{}{}
-	// 		credentialFieldsMap["credential_source"] = v.ConnectionData.CredentialFields.CredentialSource
-	// 		credentialFieldsMap["role_arn"] = v.ConnectionData.CredentialFields.RoleArn
-	// 		credentialFields.Add(credentialFieldsMap)
-	// 		connection["credential_fields"] = credentialFields
-	// 	}
-
-	// 	if v.ConnectionData.CyberarkSecret != nil {
-	// 		amazonSecret := &schema.Set{F: resourceConnectionDataCyberarkSecretHash}
-	// 		amazonSecretMap := map[string]interface{}{}
-	// 		//amazonSecretMap["field_mapping"] = v.ConnectionData.AmazonSecret.FieldMapping
-	// 		amazonSecretMap["secret_asset_id"] = v.ConnectionData.CyberarkSecret.SecretAssetID
-	// 		amazonSecretMap["secret_name"] = v.ConnectionData.CyberarkSecret.SecretName
-	// 		amazonSecret.Add(amazonSecretMap)
-	// 		connection["cyberark_secret"] = amazonSecret
-	// 	}
-
-	// 	if v.ConnectionData.HashicorpSecret != nil {
-	// 		hashicorpSecret := &schema.Set{F: resourceConnectionDataHashicorpSecretHash}
-	// 		hashicorpSecretMap := map[string]interface{}{}
-	// 		//hashicorpSecretMap["field_mapping"] = v.ConnectionData.HashicorpSecret.Path
-	// 		hashicorpSecretMap["path"] = v.ConnectionData.HashicorpSecret.Path
-	// 		hashicorpSecretMap["secret_asset_id"] = v.ConnectionData.HashicorpSecret.SecretAssetID
-	// 		hashicorpSecretMap["secret_name"] = v.ConnectionData.HashicorpSecret.SecretName
-	// 		hashicorpSecret.Add(hashicorpSecretMap)
-	// 		connection["hashicorp_secret"] = hashicorpSecret
-	// 	}
-
-	// 	connections.Add(connection)
-	// }
-	// d.Set("asset_connection", connections)
+	d.Set("id", classificationReadResponse.IntegrationData.ID)
+	d.Set("description", classificationReadResponse.IntegrationData.Description)
+	d.Set("type", classificationReadResponse.IntegrationData.Type)
+	d.Set("status", classificationReadResponse.IntegrationData.Status)
+	d.Set("display_name", classificationReadResponse.IntegrationData.DisplayName)
+	d.Set("last_status_update", classificationReadResponse.IntegrationData.LastStatusUpdate)
 
 	log.Printf("[INFO] Finished reading classification with classificationId: %s\n", classificationId)
 
@@ -307,15 +210,15 @@ func resourceClassificationUpdateContext(ctx context.Context, d *schema.Resource
 	// }
 
 	// convert provided fields into API payload
-	classification := ResourceWrapper{}
+	classification := IntegrationResourceWrapper{}
 	classificationType := d.Get("type").(string)
 	createIntegrationResource(&classification, classificationType, d)
 
 	// update resource
-	log.Printf("[INFO] Updating classification for Type: %s and Id: %s\n", classification.Data.IntegrationData.Type, classification.Data.IntegrationData.ID)
+	log.Printf("[INFO] Updating classification for Type: %s and Id: %s\n", classification.IntegrationData.Type, classification.IntegrationData.ID)
 	_, err := client.UpdateClassification(classificationId, classification)
 	if err != nil {
-		log.Printf("[ERROR] Updating classification for Type: %s and Id: %s | err:%s\n", classification.Data.IntegrationData.Type, classification.Data.IntegrationData.ID, err)
+		log.Printf("[ERROR] Updating classification for Type: %s and Id: %s | err:%s\n", classification.IntegrationData.Type, classification.IntegrationData.ID, err)
 		return diag.FromErr(err)
 	}
 
