@@ -11,7 +11,7 @@ on:
         type: string
 
 jobs:
-  validate_arguments:
+  validate-arguments:
     name: "Validate arguments"
     runs-on: ubuntu-latest
     steps:
@@ -22,12 +22,9 @@ jobs:
             exit 1
           fi
   update-docs:
+    needs: validate-arguments
     if: github.ref != 'refs/heads/main'
     runs-on: [ubuntu-latest]
-    defaults:
-      run:
-        working-directory: website/docs
-        shell: bash
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
