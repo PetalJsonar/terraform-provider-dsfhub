@@ -277,7 +277,7 @@ func createResource(dsfDataSource *ResourceWrapper, serverType string, d *schema
 
 func createIntegrationResource(integration *IntegrationResourceWrapper, serverType string, d *schema.ResourceData) {
 	integrationSchema := getIntegrationSchema()
-	//  Iterate through integration.Data struct fields, retrieve value from d.get() using schema field.id
+	//  Iterate through integration.IntegrationData struct fields, retrieve value from d.get() using schema field.id
 	structDataFieldsAry := reflect.Indirect(reflect.ValueOf(&integration.IntegrationData))
 	structDataFieldKeys := reflect.ValueOf(&integration.IntegrationData).Elem()
 	for i := 0; i < structDataFieldsAry.NumField(); i++ {
@@ -302,67 +302,102 @@ func createIntegrationResource(integration *IntegrationResourceWrapper, serverTy
 
 	//  Iterate through integration.Data.IntegrationData struct fields, retrieve value from d.get() using schema field.id
 	structIntegrationDataFieldsAry := reflect.Indirect(reflect.ValueOf(&integration.IntegrationData))
-	// structAssetDataFieldKeys := reflect.ValueOf(&dsfDataSource.Data.AssetData).Elem()
+	structIntegrationDataFieldKeys := reflect.ValueOf(&integration.IntegrationData).Elem()
 	for i := 0; i < structIntegrationDataFieldsAry.NumField(); i++ {
 		curStructField := structIntegrationDataFieldsAry.Type().Field(i)
 		log.Printf("[DEBUG] checking for field in integrationSchema: %v\n", curStructField.Name)
 		if schemaField, found := integrationSchema.Details[curStructField.Name]; found {
 			log.Printf("[DEBUG] field curStructField.Name '%v' present in integrationSchema\n", curStructField.Name)
-			if curStructField.Name != "Connections" {
-				//Check to see if field value is set in tf input
-				if _, found := d.GetOk(schemaField.ID); found {
-					// structField := structAssetDataFieldKeys.FieldByName(curStructField.Name)
-					log.Printf("[DEBUG] Get schema field by schemaField.ID (%v)\n", schemaField.ID)
-					// if structField.Kind() == reflect.Ptr {
-					// 	switch schemaField.ID {
-					// 	case "audit_info":
-					// 		inputVal := d.Get(schemaField.ID).(*schema.Set)
-					// 		log.Printf("[DEBUG] audit_info: %v, %v", schemaField, inputVal)
-					// 		for _, schemaFieldInt := range inputVal.List() {
-					// 			ai := AuditInfo{}
-					// 			schemaField := schemaFieldInt.(map[string]interface{})
-					// 			for fieldName, fieldObjInt := range schemaField {
-					// 				fieldObj := fieldObjInt.(interface{})
-					// 				switch fieldName {
-					// 				case "policy_template_name":
-					// 					ai.PolicyTemplateName = fieldObj.(string)
-					// 				}
-					// 			}
-					// 			dsfDataSource.Data.AssetData.AuditInfo = &ai
-					// 		}
-					// 	case "aws_proxy_config":
-					// 		inputVal := d.Get(schemaField.ID).(*schema.Set)
-					// 		log.Printf("[DEBUG] aws_proxy_config: %v, %v", schemaField, inputVal)
-					// 		for _, schemaFieldInt := range inputVal.List() {
-					// 			apc := AwsProxyConfig{}
-					// 			schemaField := schemaFieldInt.(map[string]interface{})
-					// 			for fieldName, fieldObjInt := range schemaField {
-					// 				fieldObj := fieldObjInt.(interface{})
-					// 				switch fieldName {
-					// 				case "http":
-					// 					apc.HTTP = fieldObj.(string)
-					// 				case "https":
-					// 					apc.HTTPS = fieldObj.(string)
-					// 				}
-					// 			}
-					// 			dsfDataSource.Data.AssetData.AwsProxyConfig = &apc
-					// 		}
-					// 	}
-					// } else {
-					// 	if schemaField.ID == "server_port" {
-					// 		log.Printf("[DEBUG] Setting AssetData server_port interface as string (%v)\n", schemaField.ID)
-					// 		dsfDataSource.Data.AssetData.ServerPort = d.Get("server_port").(string)
-					// 	} else {
-					// 		populateStructField(&structField, schemaField, d)
-					// 	}
-					// }
+			//Check to see if field value is set in tf input
+			if _, found := d.GetOk(schemaField.ID); found {
+				structField := structIntegrationDataFieldKeys.FieldByName(curStructField.Name)
+				log.Printf("[DEBUG] Get schema field by schemaField.ID (%v)\n", schemaField.ID)
+				if structField.Kind() == reflect.Ptr {
+					switch schemaField.ID {
+					case "database_details":
+						inputVal := d.Get(schemaField.ID).(*schema.Set)
+						log.Printf("[DEBUG] database_details: %v, %v", schemaField, inputVal)
+						for _, schemaFieldInt := range inputVal.List() {
+							dd := DatabaseDetails{}
+							schemaField := schemaFieldInt.(map[string]interface{})
+							for fieldName, fieldObjInt := range schemaField {
+								fieldObj := fieldObjInt.(interface{})
+								switch fieldName {
+								case "database_type":
+									dd.DatabaseType = fieldObj.(string)
+								case "mongo_configuration":
+									mc := MongoConfiguration{}
+									mongoInputVal := fieldObj.(*schema.Set)
+									for _, mongoFieldInt := range mongoInputVal.List() {
+										schemaField := mongoFieldInt.(map[string]interface{})
+										for fieldName, fieldObjInt := range schemaField {
+											fieldObj := fieldObjInt.(interface{})
+											switch fieldName {
+											case "db_name":
+												mc.DbName = fieldObj.(string)
+											case "connection_string":
+												mc.ConnectionString = fieldObj.(string)
+											}
+										}
+									}
+									dd.MongoConfiguration = &mc
+								}
+								integration.IntegrationData.DatabaseDetails = &dd
+							}
+						}
+					case "storage_details":
+						inputVal := d.Get(schemaField.ID).(*schema.Set)
+						log.Printf("[DEBUG] storage_details: %v, %v", schemaField, inputVal)
+						for _, schemaFieldInt := range inputVal.List() {
+							sd := StorageDetails{}
+							schemaField := schemaFieldInt.(map[string]interface{})
+							for fieldName, fieldObjInt := range schemaField {
+								fieldObj := fieldObjInt.(interface{})
+								switch fieldName {
+								case "storage_type":
+									sd.StorageType = fieldObj.(string)
+								case "s3_bucket_configuration":
+									sbc := S3BucketConfiguration{}
+									s3configInputVal := fieldObj.(*schema.Set)
+									for _, s3FieldInt := range s3configInputVal.List() {
+										schemaField := s3FieldInt.(map[string]interface{})
+										for fieldName, fieldObjInt := range schemaField {
+											fieldObj := fieldObjInt.(interface{})
+											switch fieldName {
+											case "aws_region":
+												sbc.AWSRegion = fieldObj.(string)
+											case "bucket_name":
+												sbc.BucketName = fieldObj.(string)
+											case "cloud_name":
+												sbc.CloudName = fieldObj.(string)
+											case "access_key_id":
+												sbc.AccessKeyId = fieldObj.(string)
+											case "secret_access_key":
+												sbc.SecretAccessKey = fieldObj.(string)
+											}
+										}
+									}
+									sd.S3BucketConfiguration = &sbc
+								}
+							}
+							integration.IntegrationData.StorageDetails = &sd
+						}
+					}
 				} else {
-					log.Printf("[DEBUG] AssetData field %v not provided in terraform config - not found by d.GetOk(%v)\n", schemaField.ID, schemaField.ID)
+					populateStructField(&structField, schemaField, d)
 				}
+			} else {
+				log.Printf("[DEBUG] AssetData field %v not provided in terraform config - not found by d.GetOk(%v)\n", schemaField.ID, schemaField.ID)
 			}
 		} else {
-			log.Printf("[DEBUG] Field not found in AssetData assetSchema, assetSchema.Details[%v]: %v", curStructField.Name, integrationSchema.Details[curStructField.Name])
+			log.Printf("[DEBUG] Field not found in IntegrationData assetSchema, assetSchema.Details[%v]: %v", curStructField.Name, integrationSchema.Details[curStructField.Name])
 		}
+	}
+	integrationJSON, err := json.MarshalIndent(integration, "", "  ")
+	if err != nil {
+		log.Printf("[ERROR] could not marshal integration struct to json for debugging: %v", err)
+	} else {
+		log.Printf("[DEBUG] Finished populating integration resource struct. Final struct contents:\n%s\n", string(integrationJSON))
 	}
 }
 

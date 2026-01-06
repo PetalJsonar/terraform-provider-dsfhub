@@ -1,12 +1,18 @@
 package dsfhub
 
+var requiredCiphertrustFieldsJson = `{
+	"id",
+	"type",
+	"hostname",
+	"port",
+	"cm_name",
+	"auth_method",
+	"is_load_balancer",
+}`
+
 var requiredClassificationFieldsJson = `{
 	"id",
-	"description",
 	"type",
-	"status",
-	"display_name",
-	"last_status_updated",
 	"storage_details": {
 		"storage_type",
 		"s3_bucket_configuration: {

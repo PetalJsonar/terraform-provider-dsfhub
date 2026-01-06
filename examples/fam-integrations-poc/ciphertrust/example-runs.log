@@ -1,0 +1,452 @@
+Run #1 with is_load_balancer: "true"
+
+2026-01-06T10:46:48.411-0800 [INFO]  Terraform version: 1.8.5
+2026-01-06T10:46:48.411-0800 [INFO]  Go runtime version: go1.22.1
+2026-01-06T10:46:48.411-0800 [INFO]  CLI args: []string{"terraform", "apply"}
+2026-01-06T10:46:48.412-0800 [INFO]  Loading CLI configuration from /Users/petal.vitis/.terraformrc
+2026-01-06T10:46:48.416-0800 [INFO]  CLI command args: []string{"apply"}
+2026-01-06T10:46:48.457-0800 [INFO]  backend/local: starting Apply operation
+2026-01-06T10:46:48.471-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:46:48.537-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:46:48.535-0800
+2026-01-06T10:46:48.575-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:46:48.597-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:46:48.597-0800
+2026-01-06T10:46:48.620-0800 [INFO]  backend/local: apply calling Plan
+2026-01-06T10:46:48.621-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:46:48.638-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:46:48.638-0800
+2026-01-06T10:46:48.651-0800 [WARN]  ValidateProviderConfig from "provider[\"registry.terraform.io/imperva/dsfhub\"]" changed the config value, but that value is unused
+2026-01-06T10:46:48.653-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:48 [INFO] Checking API token against DSF Host /gateways endpoint: timestamp=2026-01-06T10:46:48.653-0800
+2026-01-06T10:46:48.653-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:48 [DEBUG] reqURL: https://34.195.204.232:8443/dsf/api/v2/gateways: timestamp=2026-01-06T10:46:48.653-0800
+2026-01-06T10:46:49.601-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:49 [DEBUG] gatewaysResponse: {
+  "data" : [ {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "8959cbe3-c972-4e45-9492-e31b27df2983-172.31.79.177",
+    "name" : "ip-172-31-79-177.ec2.internal",
+    "hostname" : "172.31.79.177",
+    "serverType" : "IMPERVA AGENTLESS GATEWAY",
+    "sonar" : {
+      "jsonarUid" : "8959cbe3-c972-4e45-9492-e31b27df2983"
+    }
+  }, {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "a673e89e-56e5-462e-b74f-aee22e30d7b8-172.31.64.232",
+    "name" : "ip-172-31-64-232.ec2.internal",
+    "hostname" : "172.31.64.232",
+    "serverType" : "IMPERVA WAREHOUSE",
+    "sonar" : {
+      "jsonarUid" : "a673e89e-56e5-462e-b74f-aee22e30d7b8"
+    }
+  } ]
+}: timestamp=2026-01-06T10:46:49.601-0800
+2026-01-06T10:46:49.601-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:49 [INFO] Successfully authenticated to DSF API: timestamp=2026-01-06T10:46:49.601-0800
+2026-01-06T10:46:55.747-0800 [INFO]  backend/local: apply calling Apply
+2026-01-06T10:46:55.750-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:46:55.774-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:46:55.773-0800
+2026-01-06T10:46:55.791-0800 [WARN]  ValidateProviderConfig from "provider[\"registry.terraform.io/imperva/dsfhub\"]" changed the config value, but that value is unused
+2026-01-06T10:46:55.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:55 [INFO] Checking API token against DSF Host /gateways endpoint: timestamp=2026-01-06T10:46:55.792-0800
+2026-01-06T10:46:55.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:55 [DEBUG] reqURL: https://34.195.204.232:8443/dsf/api/v2/gateways: timestamp=2026-01-06T10:46:55.792-0800
+2026-01-06T10:46:56.782-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] gatewaysResponse: {
+  "data" : [ {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "8959cbe3-c972-4e45-9492-e31b27df2983-172.31.79.177",
+    "name" : "ip-172-31-79-177.ec2.internal",
+    "hostname" : "172.31.79.177",
+    "serverType" : "IMPERVA AGENTLESS GATEWAY",
+    "sonar" : {
+      "jsonarUid" : "8959cbe3-c972-4e45-9492-e31b27df2983"
+    }
+  }, {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "a673e89e-56e5-462e-b74f-aee22e30d7b8-172.31.64.232",
+    "name" : "ip-172-31-64-232.ec2.internal",
+    "hostname" : "172.31.64.232",
+    "serverType" : "IMPERVA WAREHOUSE",
+    "sonar" : {
+      "jsonarUid" : "a673e89e-56e5-462e-b74f-aee22e30d7b8"
+    }
+  } ]
+}: timestamp=2026-01-06T10:46:56.782-0800
+2026-01-06T10:46:56.782-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [INFO] Successfully authenticated to DSF API: timestamp=2026-01-06T10:46:56.782-0800
+2026-01-06T10:46:56.788-0800 [INFO]  Starting apply for dsfhub_ciphertrust.this
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: AuthMethod: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'AuthMethod' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (auth_method): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: auth_method string 'password' Type:string: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: CMName: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'CMName' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (cm_name): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: cm_name string 'test-cm-tf' Type:string: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: DatabaseDetails: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.791-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'DatabaseDetails' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field database_details not provided in terraform config - not found by d.GetOk(database_details): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: DdcEnabled: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'DdcEnabled' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (ddc_enabled): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_enabled bool 'true' Type:bool: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: DdcActiveNodeHostname: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'DdcActiveNodeHostname' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (ddc_active_node_hostname): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_active_node_hostname string 'ddc-active-node-hostname' Type:string: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: DdcActiveNodePort: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'DdcActiveNodePort' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (ddc_active_node_port): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_active_node_port int '443' Type:int: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Description: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Description' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field description not provided in terraform config - not found by d.GetOk(description): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: DisplayName: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'DisplayName' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field display_name not provided in terraform config - not found by d.GetOk(display_name): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Hostname: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Hostname' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (hostname): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: hostname string '1.2.3.4' Type:string: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: ID: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'ID' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field id not provided in terraform config - not found by d.GetOk(id): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: IsLoadBalancer: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'IsLoadBalancer' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (is_load_balancer): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: is_load_balancer string 'true' Type:string: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: LastStatusUpdate: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'LastStatusUpdate' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field last_status_update not provided in terraform config - not found by d.GetOk(last_status_update): timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Password: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Password' present in integrationSchema: timestamp=2026-01-06T10:46:56.791-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (password): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: password string 'mypassword' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Port: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Port' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (port): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: port int '443' Type:int: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: RegistrationToken: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'RegistrationToken' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field registration_token not provided in terraform config - not found by d.GetOk(registration_token): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Status: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Status' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field status not provided in terraform config - not found by d.GetOk(status): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: StorageDetails: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'StorageDetails' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field storage_details not provided in terraform config - not found by d.GetOk(storage_details): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Type: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Type' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field type not provided in terraform config - not found by d.GetOk(type): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for Data field in integrationSchema: Username: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Data field curStructField.Name 'Username' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema Data field by schemaField.ID (username): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: username string 'myuser' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: AuthMethod: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'AuthMethod' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (auth_method): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: auth_method string 'password' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: CMName: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'CMName' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (cm_name): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: cm_name string 'test-cm-tf' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: DatabaseDetails: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'DatabaseDetails' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field database_details not provided in terraform config - not found by d.GetOk(database_details): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: DdcEnabled: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'DdcEnabled' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (ddc_enabled): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_enabled bool 'true' Type:bool: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: DdcActiveNodeHostname: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'DdcActiveNodeHostname' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (ddc_active_node_hostname): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_active_node_hostname string 'ddc-active-node-hostname' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: DdcActiveNodePort: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'DdcActiveNodePort' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (ddc_active_node_port): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: ddc_active_node_port int '443' Type:int: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Description: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Description' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field description not provided in terraform config - not found by d.GetOk(description): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: DisplayName: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'DisplayName' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.792-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field display_name not provided in terraform config - not found by d.GetOk(display_name): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Hostname: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Hostname' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (hostname): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: hostname string '1.2.3.4' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: ID: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'ID' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field id not provided in terraform config - not found by d.GetOk(id): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: IsLoadBalancer: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'IsLoadBalancer' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (is_load_balancer): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: is_load_balancer string 'true' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: LastStatusUpdate: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'LastStatusUpdate' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field last_status_update not provided in terraform config - not found by d.GetOk(last_status_update): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Password: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Password' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (password): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: password string 'mypassword' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Port: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Port' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (port): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: port int '443' Type:int: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: RegistrationToken: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'RegistrationToken' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field registration_token not provided in terraform config - not found by d.GetOk(registration_token): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Status: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Status' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field status not provided in terraform config - not found by d.GetOk(status): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: StorageDetails: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'StorageDetails' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field storage_details not provided in terraform config - not found by d.GetOk(storage_details): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Type: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Type' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] AssetData field type not provided in terraform config - not found by d.GetOk(type): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] checking for field in integrationSchema: Username: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] field curStructField.Name 'Username' present in integrationSchema: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Get schema field by schemaField.ID (username): timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.793-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] populateStructField value for schemaField.ID: username string 'myuser' Type:string: timestamp=2026-01-06T10:46:56.792-0800
+2026-01-06T10:46:56.794-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Finished populating integration resource struct. Final struct contents:
+{
+  "data": {
+    "auth_method": "password",
+    "cm_name": "test-cm-tf",
+    "ddc_enabled": true,
+    "ddc_active_node_hostname": "ddc-active-node-hostname",
+    "ddc_active_node_port": 443,
+    "hostname": "1.2.3.4",
+    "is_load_balancer": "true",
+    "password": "mypassword",
+    "port": 443,
+    "username": "myuser"
+  }
+}: timestamp=2026-01-06T10:46:56.794-0800
+2026-01-06T10:46:56.794-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [INFO] Creating Ciphertrust of type:: timestamp=2026-01-06T10:46:56.794-0800
+2026-01-06T10:46:56.794-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [INFO] Adding Ciphertrust integration: timestamp=2026-01-06T10:46:56.794-0800
+2026-01-06T10:46:56.794-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] Adding ciphertrust - JSON: {"data":{"auth_method":"password","cm_name":"test-cm-tf","ddc_enabled":true,"ddc_active_node_hostname":"ddc-active-node-hostname","ddc_active_node_port":443,"hostname":"1.2.3.4","is_load_balancer":"true","password":"mypassword","port":443,"username":"myuser"}}: timestamp=2026-01-06T10:46:56.794-0800
+2026-01-06T10:46:56.794-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:46:56 [DEBUG] reqURL: https://34.195.204.232:8443/integrations/api/v1/ciphertrust: timestamp=2026-01-06T10:46:56.794-0800
+2026-01-06T10:47:27.100-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:47:27 [DEBUG] Add DSF ciphertrust JSON response: {"errors":[{"status":500,"id":"a814230cd8b637233f3c02642a8e3dc9","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}: timestamp=2026-01-06T10:47:27.100-0800
+2026-01-06T10:47:27.101-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:47:27 [ERROR] adding ciphertrust of type:  | err: errors found in json response: {"errors":[{"status":500,"id":"a814230cd8b637233f3c02642a8e3dc9","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}: timestamp=2026-01-06T10:47:27.100-0800
+2026-01-06T10:47:27.101-0800 [ERROR] provider.terraform-provider-dsfhub: Response contains error diagnostic: tf_req_id=4b836dbc-e133-485f-2b5b-fbe2abde0e72 tf_resource_type=dsfhub_ciphertrust @caller=/Users/petal.vitis/Repos/gopath/pkg/mod/github.com/hashicorp/terraform-plugin-go@v0.23.0/tfprotov5/internal/diag/diagnostics.go:58 @module=sdk.proto diagnostic_severity=ERROR diagnostic_summary="errors found in json response: {\"errors\":[{\"status\":500,\"id\":\"a814230cd8b637233f3c02642a8e3dc9\",\"source\":{\"pointer\":\"/integrations/api/v1/ciphertrust\"},\"title\":\"Internal Server Error\",\"detail\":\"Connectivity to CipherTrust Manager 1.2.3.4:443 failed\"}]}" tf_proto_version=5.6 tf_rpc=ApplyResourceChange diagnostic_detail="" tf_provider_addr=provider timestamp=2026-01-06T10:47:27.100-0800
+2026-01-06T10:47:27.121-0800 [ERROR] vertex "dsfhub_ciphertrust.this" error: errors found in json response: {"errors":[{"status":500,"id":"a814230cd8b637233f3c02642a8e3dc9","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}
+
+Run #2 with is_load_balancer: "false"
+
+2026-01-06T10:48:41.143-0800 [INFO]  Terraform version: 1.8.5
+2026-01-06T10:48:41.144-0800 [INFO]  Go runtime version: go1.22.1
+2026-01-06T10:48:41.144-0800 [INFO]  CLI args: []string{"terraform", "apply"}
+2026-01-06T10:48:41.144-0800 [INFO]  Loading CLI configuration from /Users/petal.vitis/.terraformrc
+2026-01-06T10:48:41.152-0800 [INFO]  CLI command args: []string{"apply"}
+2026-01-06T10:48:41.174-0800 [INFO]  backend/local: starting Apply operation
+2026-01-06T10:48:41.185-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:48:41.259-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:48:41.258-0800
+2026-01-06T10:48:41.304-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:48:41.324-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:48:41.324-0800
+2026-01-06T10:48:41.349-0800 [INFO]  backend/local: apply calling Plan
+2026-01-06T10:48:41.351-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:48:41.364-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:48:41.364-0800
+2026-01-06T10:48:41.377-0800 [WARN]  ValidateProviderConfig from "provider[\"registry.terraform.io/imperva/dsfhub\"]" changed the config value, but that value is unused
+2026-01-06T10:48:41.379-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:41 [INFO] Checking API token against DSF Host /gateways endpoint: timestamp=2026-01-06T10:48:41.379-0800
+2026-01-06T10:48:41.379-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:41 [DEBUG] reqURL: https://34.195.204.232:8443/dsf/api/v2/gateways: timestamp=2026-01-06T10:48:41.379-0800
+2026-01-06T10:48:42.322-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:42 [DEBUG] gatewaysResponse: {
+  "data" : [ {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "8959cbe3-c972-4e45-9492-e31b27df2983-172.31.79.177",
+    "name" : "ip-172-31-79-177.ec2.internal",
+    "hostname" : "172.31.79.177",
+    "serverType" : "IMPERVA AGENTLESS GATEWAY",
+    "sonar" : {
+      "jsonarUid" : "8959cbe3-c972-4e45-9492-e31b27df2983"
+    }
+  }, {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "a673e89e-56e5-462e-b74f-aee22e30d7b8-172.31.64.232",
+    "name" : "ip-172-31-64-232.ec2.internal",
+    "hostname" : "172.31.64.232",
+    "serverType" : "IMPERVA WAREHOUSE",
+    "sonar" : {
+      "jsonarUid" : "a673e89e-56e5-462e-b74f-aee22e30d7b8"
+    }
+  } ]
+}: timestamp=2026-01-06T10:48:42.321-0800
+2026-01-06T10:48:42.322-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:42 [INFO] Successfully authenticated to DSF API: timestamp=2026-01-06T10:48:42.321-0800
+2026-01-06T10:48:43.827-0800 [INFO]  backend/local: apply calling Apply
+2026-01-06T10:48:43.829-0800 [INFO]  provider: configuring client automatic mTLS
+2026-01-06T10:48:43.866-0800 [INFO]  provider.terraform-provider-dsfhub: configuring server automatic mTLS: timestamp=2026-01-06T10:48:43.863-0800
+2026-01-06T10:48:43.887-0800 [WARN]  ValidateProviderConfig from "provider[\"registry.terraform.io/imperva/dsfhub\"]" changed the config value, but that value is unused
+2026-01-06T10:48:43.887-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:43 [INFO] Checking API token against DSF Host /gateways endpoint: timestamp=2026-01-06T10:48:43.887-0800
+2026-01-06T10:48:43.887-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:43 [DEBUG] reqURL: https://34.195.204.232:8443/dsf/api/v2/gateways: timestamp=2026-01-06T10:48:43.887-0800
+2026-01-06T10:48:45.011-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] gatewaysResponse: {
+  "data" : [ {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "8959cbe3-c972-4e45-9492-e31b27df2983-172.31.79.177",
+    "name" : "ip-172-31-79-177.ec2.internal",
+    "hostname" : "172.31.79.177",
+    "serverType" : "IMPERVA AGENTLESS GATEWAY",
+    "sonar" : {
+      "jsonarUid" : "8959cbe3-c972-4e45-9492-e31b27df2983"
+    }
+  }, {
+    "applianceId" : 1,
+    "applianceType" : "DSF_HUB",
+    "id" : "a673e89e-56e5-462e-b74f-aee22e30d7b8-172.31.64.232",
+    "name" : "ip-172-31-64-232.ec2.internal",
+    "hostname" : "172.31.64.232",
+    "serverType" : "IMPERVA WAREHOUSE",
+    "sonar" : {
+      "jsonarUid" : "a673e89e-56e5-462e-b74f-aee22e30d7b8"
+    }
+  } ]
+}: timestamp=2026-01-06T10:48:45.011-0800
+2026-01-06T10:48:45.011-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [INFO] Successfully authenticated to DSF API: timestamp=2026-01-06T10:48:45.011-0800
+2026-01-06T10:48:45.014-0800 [INFO]  Starting apply for dsfhub_ciphertrust.this
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: AuthMethod: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'AuthMethod' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (auth_method): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: auth_method string 'password' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: CMName: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'CMName' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (cm_name): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: cm_name string 'test-cm-tf' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: DatabaseDetails: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'DatabaseDetails' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field database_details not provided in terraform config - not found by d.GetOk(database_details): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: DdcEnabled: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'DdcEnabled' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field ddc_enabled not provided in terraform config - not found by d.GetOk(ddc_enabled): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: DdcActiveNodeHostname: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'DdcActiveNodeHostname' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field ddc_active_node_hostname not provided in terraform config - not found by d.GetOk(ddc_active_node_hostname): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: DdcActiveNodePort: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'DdcActiveNodePort' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field ddc_active_node_port not provided in terraform config - not found by d.GetOk(ddc_active_node_port): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Description: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Description' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field description not provided in terraform config - not found by d.GetOk(description): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: DisplayName: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'DisplayName' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field display_name not provided in terraform config - not found by d.GetOk(display_name): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Hostname: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Hostname' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (hostname): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: hostname string '1.2.3.4' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: ID: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'ID' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field id not provided in terraform config - not found by d.GetOk(id): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: IsLoadBalancer: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'IsLoadBalancer' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (is_load_balancer): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: is_load_balancer string 'false' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: LastStatusUpdate: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'LastStatusUpdate' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field last_status_update not provided in terraform config - not found by d.GetOk(last_status_update): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Password: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Password' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (password): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: password string 'mypassword' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Port: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Port' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.016-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (port): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: port int '443' Type:int: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: RegistrationToken: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'RegistrationToken' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field registration_token not provided in terraform config - not found by d.GetOk(registration_token): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Status: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Status' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field status not provided in terraform config - not found by d.GetOk(status): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: StorageDetails: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'StorageDetails' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field storage_details not provided in terraform config - not found by d.GetOk(storage_details): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Type: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Type' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field type not provided in terraform config - not found by d.GetOk(type): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for Data field in integrationSchema: Username: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Data field curStructField.Name 'Username' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema Data field by schemaField.ID (username): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: username string 'myuser' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: AuthMethod: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'AuthMethod' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (auth_method): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: auth_method string 'password' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: CMName: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'CMName' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (cm_name): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: cm_name string 'test-cm-tf' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: DatabaseDetails: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'DatabaseDetails' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field database_details not provided in terraform config - not found by d.GetOk(database_details): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: DdcEnabled: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'DdcEnabled' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field ddc_enabled not provided in terraform config - not found by d.GetOk(ddc_enabled): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: DdcActiveNodeHostname: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'DdcActiveNodeHostname' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field ddc_active_node_hostname not provided in terraform config - not found by d.GetOk(ddc_active_node_hostname): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: DdcActiveNodePort: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'DdcActiveNodePort' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field ddc_active_node_port not provided in terraform config - not found by d.GetOk(ddc_active_node_port): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Description: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Description' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field description not provided in terraform config - not found by d.GetOk(description): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: DisplayName: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'DisplayName' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field display_name not provided in terraform config - not found by d.GetOk(display_name): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Hostname: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Hostname' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (hostname): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: hostname string '1.2.3.4' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: ID: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'ID' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field id not provided in terraform config - not found by d.GetOk(id): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: IsLoadBalancer: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'IsLoadBalancer' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (is_load_balancer): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: is_load_balancer string 'false' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: LastStatusUpdate: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'LastStatusUpdate' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field last_status_update not provided in terraform config - not found by d.GetOk(last_status_update): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Password: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Password' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (password): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: password string 'mypassword' Type:string: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Port: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Port' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (port): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: port int '443' Type:int: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: RegistrationToken: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'RegistrationToken' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field registration_token not provided in terraform config - not found by d.GetOk(registration_token): timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Status: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Status' present in integrationSchema: timestamp=2026-01-06T10:48:45.016-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field status not provided in terraform config - not found by d.GetOk(status): timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: StorageDetails: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'StorageDetails' present in integrationSchema: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field storage_details not provided in terraform config - not found by d.GetOk(storage_details): timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Type: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Type' present in integrationSchema: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] AssetData field type not provided in terraform config - not found by d.GetOk(type): timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] checking for field in integrationSchema: Username: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] field curStructField.Name 'Username' present in integrationSchema: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Get schema field by schemaField.ID (username): timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] populateStructField value for schemaField.ID: username string 'myuser' Type:string: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Finished populating integration resource struct. Final struct contents:
+{
+  "data": {
+    "auth_method": "password",
+    "cm_name": "test-cm-tf",
+    "hostname": "1.2.3.4",
+    "is_load_balancer": "false",
+    "password": "mypassword",
+    "port": 443,
+    "username": "myuser"
+  }
+}: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [INFO] Creating Ciphertrust of type:: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [INFO] Adding Ciphertrust integration: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] Adding ciphertrust - JSON: {"data":{"auth_method":"password","cm_name":"test-cm-tf","hostname":"1.2.3.4","is_load_balancer":"false","password":"mypassword","port":443,"username":"myuser"}}: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:48:45.017-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:48:45 [DEBUG] reqURL: https://34.195.204.232:8443/integrations/api/v1/ciphertrust: timestamp=2026-01-06T10:48:45.017-0800
+2026-01-06T10:49:15.298-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:49:15 [DEBUG] Add DSF ciphertrust JSON response: {"errors":[{"status":500,"id":"67812802cbf988807e86f7818c88d7c8","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}: timestamp=2026-01-06T10:49:15.296-0800
+2026-01-06T10:49:15.298-0800 [INFO]  provider.terraform-provider-dsfhub: 2026/01/06 10:49:15 [ERROR] adding ciphertrust of type:  | err: errors found in json response: {"errors":[{"status":500,"id":"67812802cbf988807e86f7818c88d7c8","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}: timestamp=2026-01-06T10:49:15.297-0800
+2026-01-06T10:49:15.299-0800 [ERROR] provider.terraform-provider-dsfhub: Response contains error diagnostic: @caller=/Users/petal.vitis/Repos/gopath/pkg/mod/github.com/hashicorp/terraform-plugin-go@v0.23.0/tfprotov5/internal/diag/diagnostics.go:58 diagnostic_summary="errors found in json response: {\"errors\":[{\"status\":500,\"id\":\"67812802cbf988807e86f7818c88d7c8\",\"source\":{\"pointer\":\"/integrations/api/v1/ciphertrust\"},\"title\":\"Internal Server Error\",\"detail\":\"Connectivity to CipherTrust Manager 1.2.3.4:443 failed\"}]}" tf_proto_version=5.6 tf_resource_type=dsfhub_ciphertrust @module=sdk.proto diagnostic_detail="" diagnostic_severity=ERROR tf_provider_addr=provider tf_req_id=4ebc6884-ba65-54ed-4882-2581929e610d tf_rpc=ApplyResourceChange timestamp=2026-01-06T10:49:15.297-0800
+2026-01-06T10:49:15.322-0800 [ERROR] vertex "dsfhub_ciphertrust.this" error: errors found in json response: {"errors":[{"status":500,"id":"67812802cbf988807e86f7818c88d7c8","source":{"pointer":"/integrations/api/v1/ciphertrust"},"title":"Internal Server Error","detail":"Connectivity to CipherTrust Manager 1.2.3.4:443 failed"}]}

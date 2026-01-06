@@ -30,20 +30,21 @@ func resourceCiphertrust() *schema.Resource {
 				Type:        schema.TypeString,
 				Description: "Description of the ciphertrust.",
 				Optional:    true,
-				// Computed:    true,
-				Default: "Used for integrating with Thales CipherTrust Manager capabilities.",
+				Computed:    true,
+				// Default: "Used for integrating with Thales CipherTrust Manager capabilities.",
 			},
 			"type": {
 				Type:        schema.TypeString,
 				Description: "Type of the ciphertrust.",
 				Optional:    true,
-				Default:     "CipherTrust Manager",
+				Computed:    true,
+				// Default:     "CipherTrust Manager",
 			},
 			"status": {
 				Type:        schema.TypeString,
 				Description: "Status of the ciphertrust.",
 				Optional:    true,
-				Default:     "N/A",
+				Computed:    true,
 			},
 			"display_name": {
 				Type:        schema.TypeString,
@@ -83,10 +84,9 @@ func resourceCiphertrust() *schema.Resource {
 				Required:    true,
 			},
 			"is_load_balancer": {
-				Type:        schema.TypeBool,
+				Type:        schema.TypeString,
 				Description: "Indicates if the ciphertrust is a load balancer.",
-				Optional:    true,
-				Default:     false,
+				Required:    true,
 			},
 			"auth_method": {
 				Type:        schema.TypeString,
@@ -98,6 +98,21 @@ func resourceCiphertrust() *schema.Resource {
 				Description: "Registration token for the ciphertrust.",
 				Optional:    true,
 				Sensitive:   true,
+			},
+			"ddc_enabled": {
+				Type:        schema.TypeBool,
+				Description: "Indicates if DDC is enabled.",
+				Optional:    true,
+			},
+			"ddc_active_node_hostname": {
+				Type:        schema.TypeString,
+				Description: "Hostname of the active DDC node.",
+				Optional:    true,
+			},
+			"ddc_active_node_port": {
+				Type:        schema.TypeInt,
+				Description: "Port of the active DDC node.",
+				Optional:    true,
 			},
 		},
 	}
@@ -181,6 +196,9 @@ func resourceCiphertrustReadContext(ctx context.Context, d *schema.ResourceData,
 	d.Set("is_load_balancer", ciphertrustReadResponse.IntegrationData.IsLoadBalancer)
 	d.Set("auth_method", ciphertrustReadResponse.IntegrationData.AuthMethod)
 	d.Set("registration_token", ciphertrustReadResponse.IntegrationData.RegistrationToken)
+	d.Set("ddc_enabled", ciphertrustReadResponse.IntegrationData.DdcEnabled)
+	d.Set("ddc_active_node_hostname", ciphertrustReadResponse.IntegrationData.DdcActiveNodeHostname)
+	d.Set("ddc_active_node_port", ciphertrustReadResponse.IntegrationData.DdcActiveNodePort)
 
 	log.Printf("[INFO] Finished reading ciphertrust with ciphertrustId: %s\n", ciphertrustId)
 
@@ -193,7 +211,9 @@ func resourceCiphertrustUpdateContext(ctx context.Context, d *schema.ResourceDat
 
 	// check provided fields against schema
 	ciphertrustId := d.Id()
-	// if isOk, err := checkResourceRequiredFields(requiredSecretManagerFieldsJson, ignoreSecretManagerParamsByServerType, d); !isOk {
+
+	// TODO: needs a specialized checkResourceRequiredFields for integrations
+	// if isOk, err := checkResourceRequiredFields(requiredCiphertrustFieldsJson, ignoreSecretManagerParamsByServerType, d); !isOk {
 	// 	return diag.FromErr(err)
 	// }
 
@@ -245,35 +265,3 @@ func resourceCiphertrustDeleteContext(ctx context.Context, d *schema.ResourceDat
 
 	return nil
 }
-
-// TODO
-// func resourceCiphertrustDatabaseDetailsHash(v interface{}) int {
-// 	var buf bytes.Buffer
-// 	m := v.(map[string]interface{})
-
-// if v, ok := m["id"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// if v, ok := m["description"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// if v, ok := m["type"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// if v, ok := m["status"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// if v, ok := m["display_name"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// if v, ok := m["last_status_update"]; ok {
-// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-// }
-
-// 	return PositiveHash(buf.String())
-// }

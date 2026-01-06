@@ -13,7 +13,7 @@ const endpointClassification = "/classification"
 
 // CreateClassification adds a classification integration to DSF
 func (c *Client) CreateClassification(classification IntegrationResourceWrapper) (*IntegrationResourceWrapper, error) {
-	log.Printf("[INFO] Adding Classification Type: %s | ID: %s\n", classification.IntegrationData.Type, classification.IntegrationData.ID)
+	log.Printf("[INFO] Adding Classification integration\n")
 
 	classificationJSON, err := json.Marshal(classification)
 	log.Printf("[DEBUG] Adding classification - JSON: %s\n", classificationJSON)
@@ -39,7 +39,7 @@ func (c *Client) CreateClassification(classification IntegrationResourceWrapper)
 	if err != nil {
 		return nil, fmt.Errorf("error parsing add Classification - JSON response type: %s | err: %s\n", classification.IntegrationData.Type, err)
 	}
-	if createClassificationResponse.Error.Code != 200 {
+	if createClassificationResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 	return &createClassificationResponse, nil
@@ -68,40 +68,11 @@ func (c *Client) ReadClassification(classificationId string) (*IntegrationResour
 	if err != nil {
 		return nil, fmt.Errorf("error parsing Classification JSON response for classificationId: %s | Classification: %s err: %s\n", classificationId, responseBody, err)
 	}
-	if readClassificationResponse.Error.Code != 200 {
+	if readClassificationResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 
 	return &readClassificationResponse, nil
-}
-
-// ReadClassifications gets all Classification integrations
-func (c *Client) ReadClassifications() (*IntegrationResourcesWrapper, error) {
-	log.Printf("[INFO] Getting Classifications\n")
-
-	resp, err := c.MakeCall(http.MethodGet, "get-config", "integration", nil)
-	if err != nil {
-		return nil, fmt.Errorf("error reading Classifications | err: %s\n", err)
-	}
-
-	// Read the body
-	defer resp.Body.Close()
-	responseBody, err := ioutil.ReadAll(resp.Body)
-
-	// Dump JSON
-	log.Printf("[DEBUG] DSF Classifications JSON response: %s\n", string(responseBody))
-
-	// Parse the JSON
-	var readClassificationsResponse IntegrationResourcesWrapper
-	err = json.Unmarshal([]byte(responseBody), &readClassificationsResponse)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing Classifications JSON response: %s err: %s\n", responseBody, err)
-	}
-	if readClassificationsResponse.Error.Code != 200 {
-		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
-	}
-
-	return &readClassificationsResponse, nil
 }
 
 // UpdateClassification will update a specific classification record in DSF referenced by the classificationId
@@ -133,7 +104,7 @@ func (c *Client) UpdateClassification(classificationId string, classification In
 	if err != nil {
 		return nil, fmt.Errorf("error parsing update Classification JSON response for classificationId: %s | err: %s\n", classificationId, err)
 	}
-	if updateClassificationResponse.Error.Code != 200 {
+	if updateClassificationResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 
@@ -168,7 +139,7 @@ func (c *Client) DeleteClassification(classificationId string) (*IntegrationReso
 	if err != nil {
 		return nil, fmt.Errorf("error parsing delete Classification JSON response for classificationId: %s, %s\n", classificationId, err)
 	}
-	if deleteClassificationResponse.Error.Code != 200 {
+	if deleteClassificationResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 

@@ -92,7 +92,7 @@ func TestInvalidSyncType(t *testing.T) {
 	log.Printf("[INFO] Configuring client with sync_type: '%v'\n", invalidSyncType)
 	log.Printf("[DEBUG] Test server URL %v \n", server.URL)
 
-	config := Config{DSFHUBToken: "good", DSFHUBHost: server.URL, Params: map[string]string{"syncType": invalidSyncType}}
+	config := Config{DSFHUBToken: "good", DSFHUBHost: server.URL, Params: map[string]interface{}{"syncType": invalidSyncType}}
 	client, err := config.Client()
 	if err == nil {
 		t.Errorf("Should have received an error, got a client: %q", client)

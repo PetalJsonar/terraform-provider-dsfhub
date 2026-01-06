@@ -13,7 +13,7 @@ const endpointCiphertrust = "/ciphertrust"
 
 // CreateCiphertrust adds a CipherTrust integration to DSF
 func (c *Client) CreateCiphertrust(ciphertrust IntegrationResourceWrapper) (*IntegrationResourceWrapper, error) {
-	log.Printf("[INFO] Adding Ciphertrust Type: %s | ID: %s\n", ciphertrust.IntegrationData.Type, ciphertrust.IntegrationData.ID)
+	log.Printf("[INFO] Adding Ciphertrust integration\n")
 
 	ciphertrustJSON, err := json.Marshal(ciphertrust)
 	log.Printf("[DEBUG] Adding ciphertrust - JSON: %s\n", ciphertrustJSON)
@@ -39,7 +39,7 @@ func (c *Client) CreateCiphertrust(ciphertrust IntegrationResourceWrapper) (*Int
 	if err != nil {
 		return nil, fmt.Errorf("error parsing add Ciphertrust - JSON response type: %s | err: %s\n", ciphertrust.IntegrationData.Type, err)
 	}
-	if createCiphertrustResponse.Error.Code != 200 {
+	if createCiphertrustResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 	return &createCiphertrustResponse, nil
@@ -68,40 +68,11 @@ func (c *Client) ReadCiphertrust(ciphertrustId string) (*IntegrationResourceWrap
 	if err != nil {
 		return nil, fmt.Errorf("error parsing Ciphertrust JSON response for ciphertrustId: %s | Ciphertrust: %s err: %s\n", ciphertrustId, responseBody, err)
 	}
-	if readCiphertrustResponse.Error.Code != 200 {
+	if readCiphertrustResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 
 	return &readCiphertrustResponse, nil
-}
-
-// ReadCiphertrusts gets all CipherTrust integrations
-func (c *Client) ReadCiphertrusts() (*IntegrationResourcesWrapper, error) {
-	log.Printf("[INFO] Getting Ciphertrusts\n")
-
-	resp, err := c.MakeCall(http.MethodGet, "get-config", "integration", nil)
-	if err != nil {
-		return nil, fmt.Errorf("error reading Ciphertrusts | err: %s\n", err)
-	}
-
-	// Read the body
-	defer resp.Body.Close()
-	responseBody, err := ioutil.ReadAll(resp.Body)
-
-	// Dump JSON
-	log.Printf("[DEBUG] DSF Ciphertrusts JSON response: %s\n", string(responseBody))
-
-	// Parse the JSON
-	var readCiphertrustsResponse IntegrationResourcesWrapper
-	err = json.Unmarshal([]byte(responseBody), &readCiphertrustsResponse)
-	if err != nil {
-		return nil, fmt.Errorf("error parsing Ciphertrusts JSON response: %s err: %s\n", responseBody, err)
-	}
-	if readCiphertrustsResponse.Error.Code != 200 {
-		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
-	}
-
-	return &readCiphertrustsResponse, nil
 }
 
 // UpdateCiphertrust will update a specific CipherTrust integration in DSF referenced by the ciphertrustId
@@ -133,7 +104,7 @@ func (c *Client) UpdateCiphertrust(ciphertrustId string, ciphertrust Integration
 	if err != nil {
 		return nil, fmt.Errorf("error parsing update Ciphertrust JSON response for ciphertrustId: %s | err: %s\n", ciphertrustId, err)
 	}
-	if updateCiphertrustResponse.Error.Code != 200 {
+	if updateCiphertrustResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 
@@ -168,7 +139,7 @@ func (c *Client) DeleteCiphertrust(ciphertrustId string) (*IntegrationResourceWr
 	if err != nil {
 		return nil, fmt.Errorf("error parsing delete Ciphertrust JSON response for ciphertrustId: %s, %s\n", ciphertrustId, err)
 	}
-	if deleteCiphertrustResponse.Error.Code != 200 {
+	if deleteCiphertrustResponse.Error != nil {
 		return nil, fmt.Errorf("errors found in json response: %s", responseBody)
 	}
 

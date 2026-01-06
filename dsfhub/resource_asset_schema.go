@@ -31,7 +31,6 @@ type SchemaField struct {
 	ID           string      `json:"id"`
 }
 
-// TODO: doesn't contain StorageDetails or DatabaseDetails
 var integrationSchemaJson = `{
     "details": {
         "ID": {
@@ -150,8 +149,8 @@ var integrationSchemaJson = `{
             "displayName": "Is Load Balancer",
             "example": false,
             "id": "is_load_balancer",
-            "optional": true,
-            "required": false,
+            "optional": false,
+            "required": true,
             "type": "bool"
         },
         "AuthMethod": {
@@ -173,6 +172,69 @@ var integrationSchemaJson = `{
             "optional": true,
             "required": false,
             "type": "string"
+        },
+        "DdcEnabled": {
+            "defaultValue": null,
+            "description": "Should the integration use DDC",
+            "displayName": "DDC Enabled",
+            "example": false,
+            "id": "ddc_enabled",
+            "optional": true,
+            "required": false,
+            "type": "bool"
+        },
+        "DdcActiveNodeHostname": {
+            "defaultValue": null,
+            "description": "The active node hostname for the integration",
+            "displayName": "DDC Active Node Hostname",
+            "example": "some-active-node-hostname",
+            "id": "ddc_active_node_hostname",
+            "optional": true,
+            "required": false,
+            "type": "string"
+        },
+        "DdcActiveNodePort": {
+            "defaultValue": null,
+            "description": "The active node port for the integration",
+            "displayName": "DDC Active Node Port",
+            "example": "8080",
+            "id": "ddc_active_node_port",
+            "optional": true,
+            "required": false,
+            "type": "string"
+        },
+        "DatabaseDetails": {
+            "defaultValue": null,
+            "description": "MongoDB database details",
+            "displayName": "Database Details",
+            "example": {
+                "mongo_configuration": {
+                    "db_name": "mydbname",
+                    "connection_string": "mongodb+srv://username:password@cluster0.mongodb.net"
+                },
+                "database_type": "MongoDB"
+            },
+            "id": "database_details",
+            "required": false,
+            "type": "map"
+        },
+        "StorageDetails": {
+            "defaultValue": null,
+            "description": "S3 storage details",
+            "displayName": "Storage Details",
+            "example": {
+                "s3_bucket_configuration": {
+                    "cloud_name": "AWS",
+                    "bucket_name": "mybucketname",
+                    "aws_region": "us-east-1",
+                    "access_key_id": "myaccesskeyid",
+                    "secret_access_key": "mysecretkey"
+                },
+                "storage_type ": "AWS - S3 Bucket"
+            },
+            "id": "storage_details",
+            "required": false,
+            "type": "map"
         }
     }
 }`

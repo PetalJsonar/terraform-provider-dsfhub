@@ -50,8 +50,8 @@ type ResourcesWrapper struct {
 }
 
 type IntegrationResourcesWrapper struct {
-	IntegrationData []IntegrationData `json:"integrationData"`
-	Error           IntegrationError  `json:"integrationError,omitempty"`
+	IntegrationData []IntegrationData `json:"data"`
+	Error           []APIError        `json:"errors,omitempty"`
 }
 
 type ResourceWrapper struct {
@@ -60,8 +60,8 @@ type ResourceWrapper struct {
 }
 
 type IntegrationResourceWrapper struct {
-	IntegrationData IntegrationData  `json:"integrationData,omitempty"`
-	Error           IntegrationError `json:"integrationError,omitempty"`
+	IntegrationData IntegrationData `json:"data,omitempty"`
+	Error           []APIError      `json:"errors,omitempty"`
 }
 
 type APIError struct {
@@ -319,51 +319,26 @@ type Secret struct {
 }
 
 type IntegrationData struct {
-	ID                string           `json:"id,omitempty"`
-	Description       string           `json:"description,omitempty"`
-	Type              string           `json:"type,omitempty"`
-	Status            string           `json:"status,omitempty"`
-	DisplayName       string           `json:"display_name,omitempty"`
-	LastStatusUpdate  string           `json:"last_status_update,omitempty"`
-	StorageDetails    *StorageDetails  `json:"storage_details,omitempty"`
-	DatabaseDetails   *DatabaseDetails `json:"database_details,omitempty"`
-	Hostname          string           `json:"hostname,omitempty"`
-	Port              int              `json:"port,omitempty"`
-	Username          string           `json:"username,omitempty"`
-	Password          string           `json:"password,omitempty"`
-	CMName            string           `json:"cm_name,omitempty"`
-	IsLoadBalancer    bool             `json:"is_load_balancer,omitempty"`
-	AuthMethod        string           `json:"auth_method,omitempty"`
-	RegistrationToken string           `json:"registration_token,omitempty"`
+	AuthMethod            string           `json:"auth_method,omitempty"`
+	CMName                string           `json:"cm_name,omitempty"`
+	DatabaseDetails       *DatabaseDetails `json:"database_details,omitempty"`
+	DdcEnabled            bool             `json:"ddc_enabled,omitempty"`
+	DdcActiveNodeHostname string           `json:"ddc_active_node_hostname,omitempty"`
+	DdcActiveNodePort     int              `json:"ddc_active_node_port,omitempty"`
+	Description           string           `json:"description,omitempty"`
+	DisplayName           string           `json:"display_name,omitempty"`
+	Hostname              string           `json:"hostname,omitempty"`
+	ID                    string           `json:"id,omitempty"`
+	IsLoadBalancer        string           `json:"is_load_balancer,omitempty"` // type is string due to current limitation with bools
+	LastStatusUpdate      string           `json:"last_status_update,omitempty"`
+	Password              string           `json:"password,omitempty"`
+	Port                  int              `json:"port,omitempty"`
+	RegistrationToken     string           `json:"registration_token,omitempty"`
+	Status                string           `json:"status,omitempty"`
+	StorageDetails        *StorageDetails  `json:"storage_details,omitempty"`
+	Type                  string           `json:"type,omitempty"`
+	Username              string           `json:"username,omitempty"`
 }
-
-// type ClassificationData struct {
-// 	ID string `json:"id,omitempty"`
-// 	Description string `json:"description,omitempty"`
-// 	Type string `json:"type,omitempty"`
-// 	Status string `json:"status,omitempty"`
-// 	DisplayName string `json:"display_name,omitempty"`
-// 	LastStatusUpdate string `json:"last_status_update,omitempty"`
-// 	StorageDetails *StorageDetails `json:"storage_details,omitempty"`
-// 	DatabaseDetails *DatabaseDetails `json:"database_details,omitempty"`
-// }
-
-// type CipherTrustData struct {
-// 	ID string `json:"id,omitempty"`
-// 	Description string `json:"description,omitempty"`
-// 	Type string `json:"type,omitempty"`
-// 	Status string `json:"status,omitempty"`
-// 	Hostname string `json:"hostname,omitempty"`
-// 	Port int `json:"port,omitempty"`
-// 	Username string `json:"username,omitempty"`
-// 	Password string `json:"password,omitempty"`
-// 	DisplayName string `json:"display_name,omitempty"`
-// 	LastStatusUpdate string `json:"last_status_update,omitempty"`
-// 	CMName string `json:"cm_name,omitempty"`
-// 	IsLoadBalancer bool `json:"is_load_balancer,omitempty"`
-// 	AuthMethod string `json:"auth_method,omitempty"`
-// 	RegistrationToken string `json:"registration_token,omitempty"`
-// }
 
 type OauthParameters struct {
 	Parameter string `json:"parameter,omitempty"`
@@ -380,10 +355,10 @@ type StorageDetails struct {
 }
 
 type S3BucketConfiguration struct {
-	BucketName      string `json:"bucket_name,omitempty"`
-	AWSRegion       string `json:"aws_region,omitempty"`
-	CloudName       string `json:"cloud_name,omitempty"`
 	AccessKeyId     string `json:"access_key_id,omitempty"`
+	AWSRegion       string `json:"aws_region,omitempty"`
+	BucketName      string `json:"bucket_name,omitempty"`
+	CloudName       string `json:"cloud_name,omitempty"`
 	SecretAccessKey string `json:"secret_access_key,omitempty"`
 }
 
@@ -448,6 +423,7 @@ func (c *Client) MakeCall(method string, action string, endpoint string, data []
 	}
 
 	reqURL := c.config.DSFHUBHost + APIEndpoint + action
+	log.Printf("[DEBUG] reqURL: %s\n", reqURL)
 	req, err := PrepareJsonRequest(method, reqURL, data)
 	if err != nil {
 		return nil, fmt.Errorf("error preparing request: %s", err)

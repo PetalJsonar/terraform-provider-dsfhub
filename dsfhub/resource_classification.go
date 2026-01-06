@@ -26,36 +26,39 @@ func resourceClassification() *schema.Resource {
 				Description: "ID of the classification.",
 				Optional:    true,
 				Computed:    true,
+				Default:     nil,
 			},
 			"description": {
 				Type:        schema.TypeString,
 				Description: "Description of the classification.",
 				Optional:    true,
-				// Computed: true,
-				Default: "Data discovery and classification service, used to classify all data within your organization.",
+				Computed:    true,
+				// Default: "Data discovery and classification service, used to classify all data within your organization.",
 			},
 			"type": {
 				Type:        schema.TypeString,
 				Description: "Type of the classification.",
-				Required:    true,
+				Optional:    true,
+				Computed:    true,
+				// Required:    true,
 				// Default: "Classification service",
 			},
 			"status": {
 				Type:        schema.TypeString,
 				Description: "Status of the classification.",
 				Optional:    true,
-				Default:     "N/A",
+				Computed:    true,
 			},
 			"display_name": {
 				Type:        schema.TypeString,
 				Description: "User-friendly name of the classification, defined by user.",
-				Required:    true,
+				Optional:    true,
 			},
 			"last_status_update": {
 				Type:        schema.TypeString,
 				Description: "Timestamp of the last status update.",
 				Optional:    true,
-				Default:     nil,
+				Computed:    true,
 			},
 			"database_details": {
 				Type:        schema.TypeSet,
@@ -70,10 +73,23 @@ func resourceClassification() *schema.Resource {
 							Default:     "MongoDB",
 						},
 						"mongo_configuration": {
-							Type:        schema.TypeString,
-							Description: "Connection string for MongoDB.",
-							Optional:    true,
-							Required:    false,
+							Type:        schema.TypeSet,
+							Description: "Configuration for MongoDB.",
+							Required:    true,
+							Elem: &schema.Resource{
+								Schema: map[string]*schema.Schema{
+									"db_name": {
+										Type:        schema.TypeString,
+										Description: "Name of the MongoDB database.",
+										Required:    true,
+									},
+									"connection_string": {
+										Type:        schema.TypeString,
+										Description: "Connection string for MongoDB.",
+										Required:    true,
+									},
+								},
+							},
 						},
 					},
 				},
@@ -112,6 +128,16 @@ func resourceClassification() *schema.Resource {
 										Description: "Region of the AWS S3 bucket.",
 										Required:    true,
 									},
+									"access_key_id": {
+										Type:        schema.TypeString,
+										Description: "Access key ID for AWS authentication.",
+										Required:    true,
+									},
+									"secret_access_key": {
+										Type:        schema.TypeString,
+										Description: "Secret access key for AWS authentication.",
+										Required:    true,
+									},
 								},
 							},
 						},
@@ -126,6 +152,7 @@ func resourceClassificationCreateContext(ctx context.Context, d *schema.Resource
 	var diags diag.Diagnostics
 	client := m.(*Client)
 
+	// TODO: needs a specialized checkResourceRequiredFields for integrations
 	// check provided fields against schema
 	// if isOk, err := checkResourceRequiredFields(requiredSecretManagerFieldsJson, ignoreSecretManagerParamsByServerType, d); !isOk {
 	// 	return diag.FromErr(err)
@@ -193,6 +220,25 @@ func resourceClassificationReadContext(ctx context.Context, d *schema.ResourceDa
 	d.Set("status", classificationReadResponse.IntegrationData.Status)
 	d.Set("display_name", classificationReadResponse.IntegrationData.DisplayName)
 	d.Set("last_status_update", classificationReadResponse.IntegrationData.LastStatusUpdate)
+	d.Set("database_details", classificationReadResponse.IntegrationData.DatabaseDetails)
+
+	if classificationReadResponse.IntegrationData.StorageDetails != nil {
+		storageDetails := &schema.Set{F: resourceIntegrationDatabaseDetailsHash}
+		storageDetailsMap := map[string]interface{}{}
+		storageDetailsMap["storage_type"] = classificationReadResponse.IntegrationData.StorageDetails.StorageType
+		storageDetailsMap["s3_bucket_configuration"] = classificationReadResponse.IntegrationData.StorageDetails.S3BucketConfiguration
+		storageDetails.Add(storageDetailsMap)
+		d.Set("storage_details", storageDetails)
+	}
+
+	if classificationReadResponse.IntegrationData.DatabaseDetails != nil {
+		databaseDetails := &schema.Set{F: resourceIntegrationDatabaseDetailsHash}
+		databaseDetailsMap := map[string]interface{}{}
+		databaseDetailsMap["database_type"] = classificationReadResponse.IntegrationData.DatabaseDetails.DatabaseType
+		databaseDetailsMap["mongo_configuration"] = classificationReadResponse.IntegrationData.DatabaseDetails.MongoConfiguration
+		databaseDetails.Add(databaseDetailsMap)
+		d.Set("database_details", databaseDetails)
+	}
 
 	log.Printf("[INFO] Finished reading classification with classificationId: %s\n", classificationId)
 
@@ -205,6 +251,8 @@ func resourceClassificationUpdateContext(ctx context.Context, d *schema.Resource
 
 	// check provided fields against schema
 	classificationId := d.Id()
+
+	// TODO: needs a specialized checkResourceRequiredFields for integrations
 	// if isOk, err := checkResourceRequiredFields(requiredSecretManagerFieldsJson, ignoreSecretManagerParamsByServerType, d); !isOk {
 	// 	return diag.FromErr(err)
 	// }
@@ -258,34 +306,9 @@ func resourceClassificationDeleteContext(ctx context.Context, d *schema.Resource
 	return nil
 }
 
-// TODO
 func resourceIntegrationDatabaseDetailsHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
-
-	// if v, ok := m["id"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
-
-	// if v, ok := m["description"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
-
-	// if v, ok := m["type"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
-
-	// if v, ok := m["status"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
-
-	// if v, ok := m["display_name"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
-
-	// if v, ok := m["last_status_update"]; ok {
-	// 	buf.WriteString(fmt.Sprintf("%s-", v.(string)))
-	// }
 
 	if v, ok := m["database_details"]; ok {
 		databaseDetails := v.(*schema.Set).List()
@@ -295,7 +318,16 @@ func resourceIntegrationDatabaseDetailsHash(v interface{}) int {
 				buf.WriteString(fmt.Sprintf("%s-", v.(string)))
 			}
 			if v, ok := databaseDetailMap["mongo_configuration"]; ok {
-				buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+				mongoConfigurations := v.(*schema.Set).List()
+				for _, mongoConfiguration := range mongoConfigurations {
+					mongoConfigurationMap := mongoConfiguration.(map[string]interface{})
+					if v, ok := mongoConfigurationMap["db_name"]; ok {
+						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+					}
+					if v, ok := mongoConfigurationMap["connection_string"]; ok {
+						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+					}
+				}
 			}
 		}
 	}
@@ -317,6 +349,12 @@ func resourceIntegrationDatabaseDetailsHash(v interface{}) int {
 						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
 					}
 					if v, ok := s3BucketDetailMap["aws_region"]; ok {
+						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+					}
+					if v, ok := s3BucketDetailMap["access_key_id"]; ok {
+						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
+					}
+					if v, ok := s3BucketDetailMap["secret_access_key"]; ok {
 						buf.WriteString(fmt.Sprintf("%s-", v.(string)))
 					}
 				}
